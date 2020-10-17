@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Controller
-public class UsersServlet {
+public class UsersController {
 
     private final UserDAO userDAO;
 
-    public UsersServlet(UserDAO userDAO) {
+    public UsersController(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
     @GetMapping("/users/list")
-    protected String doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected String doGet(HttpServletRequest request, HttpServletResponse response) {
         request.setAttribute("users", userDAO.findAll());
         return "/user/list";
     }

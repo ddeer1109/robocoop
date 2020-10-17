@@ -12,21 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Controller
-public class ProductsServlet {
+public class ProductsController {
     private final ProductDAO productDAO;
 
-    public ProductsServlet(ProductDAO productDAO) {
+    public ProductsController(ProductDAO productDAO) {
         this.productDAO = productDAO;
     }
 
     @GetMapping("/products/list")
-    public String doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String doGet(HttpServletRequest request, HttpServletResponse response) {
         request.setAttribute("products", productDAO.findAll());
         return "product/list";
     }
 
     @GetMapping("/")
-    public String home(){
+    public String home() {
         return "home";
     }
 }
