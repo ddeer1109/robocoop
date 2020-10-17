@@ -1,53 +1,13 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <style>
-        ul {
-            background-color: #B10000;
-            list-style-type: none;
-            height: 40px;
-            width: 800px;
-            padding: 0px;
-            margin: auto;
-            text-align: center;
-        }
-
-        ul li {
-            float: left;
-        }
-
-        ul a {
-            padding-right: 16px;
-            padding-left: 16px;
-            display: block;
-            line-height: 40px;
-            text-decoration: none;
-            font-family: Verdana, Helvetica, sans-serif;
-            font-size: 14px;
-            color: #ffffff;
-        }
-
-        ul a:hover {
-            background-color: #6D0101;
-        }
-
-        h2 {
-            text-align: center;
-        }
-    </style>
+    <link th:href="@{/style.css}" rel="stylesheet" />
 </head>
 
 <body>
 <h2>Witaj w Kooperatywie</h2>
 
-<ul>
-    <li><a th:href="@{/info}">O spółdzielni</a></li>
-    <li><a th:href="@{/products/list}">Zamów produkty</a></li>
-    <li><a th:href="@{/cart}">Zobacz koszyk</a></li>
-    <li><a th:href="@{/history}">Moje rachunki</a></li>
-    <li><a th:href="@{/total}">Suma zamówień</a></li>
-    <li><a th:href="@{/logout}">Wyloguj</a></li>
-</ul>
+<div th:insert="header :: menu">...</div>
 
 </body>
 </html>

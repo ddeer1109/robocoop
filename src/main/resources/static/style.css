@@ -1,0 +1,38 @@
+ul {
+    background-color: #B10000;
+    list-style-type: none;
+    height: 40px;
+    width: 800px;
+    padding: 0px;
+    margin: auto;
+    text-align: center;
+}
+
+ul li {
+    float: left;
+}
+
+ul a {
+    padding-right: 16px;
+    padding-left: 16px;
+    display: block;
+    line-height: 40px;
+    text-decoration: none;
+    font-family: Verdana, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+ul a:hover {
+    background-color: #6D0101;
+}
+
+h2 {
+    text-align: center;
+}
+
+td {
+    background: #ddd;
+    border: 1px solid black;
+    padding: 5px;
+}

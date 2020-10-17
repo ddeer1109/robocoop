@@ -2,8 +2,10 @@
 <html>
 <head>
     <title>Users</title>
+    <link th:href="@{/style.css}" rel="stylesheet" />
 </head>
 <body>
+<div th:insert="header :: menu">...</div>
 <ul>
     <li th:each="user:${users}" th:text="${user.id} + ' : ' + ${user.username}"></li>
 </ul>

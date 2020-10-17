@@ -2,15 +2,10 @@
 <html>
 <head>
     <title>Products</title>
-    <style>
-        td {
-            background: #ddd;
-            border: 1px solid black;
-            padding: 5px;
-        }
-    </style>
+    <link th:href="@{/style.css}" rel="stylesheet" />
 </head>
 <body>
+<div th:insert="header :: menu">...</div>
 <table>
     <tr>
         <th>produkt</th>
@@ -27,8 +22,9 @@
         <td>
             <form action="/product/order">
                 <input type="hidden" name="product_id" th:value="${product.id}">
-                <input type="text" style="width:40px" name="ilosc"><span th:text="${product.unit}"></span>&nbsp;&nbsp;<input type="submit"
-                                                                                                     value="zamów">
+                <input type="text" style="width:40px" name="ilosc"><span
+                    th:text="${product.unit}"></span>&nbsp;&nbsp;<input type="submit"
+                                                                        value="zamów">
             </form>
         </td>
     </tr>
