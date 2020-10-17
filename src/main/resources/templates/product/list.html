@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Products</title>
+    <style>
+        td {
+            background: #ddd;
+            border: 1px solid black;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <tr>
+        <th>produkt</th>
+        <th>cena (ostatnio uzyskana)</th>
+        <th>zamówiono</th>
+        <th>brakuje do pełnego zamówienia</th>
+        <th>twoje zamówienie</th>
+    </tr>
+    <tr th:each="product:${products}">
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.price}+' za ' + ${product.unit}"></td>
+        <td th:text="'0 ' +     ${product.unit}"></td>
+        <td></td>
+        <td>
+            <form action="/product/order">
+                <input type="hidden" name="product_id" th:value="${product.id}">
+                <input type="text" style="width:40px" name="ilosc"><span th:text="${product.unit}"></span>&nbsp;&nbsp;<input type="submit"
+                                                                                                     value="zamów">
+            </form>
+        </td>
+    </tr>
+    </c:forEach>
+</table>
+</body>
+</html>

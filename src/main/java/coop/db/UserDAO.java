@@ -2,15 +2,24 @@ package coop.db;
 
 
 import coop.model.User;
+import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class UserDAO {
 
+    private DataSource dataSource;
+
+    public UserDAO(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     public List<User> findAll() {
-        try (Connection conn = DbUtil.getConnection();
+        try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement("SELECT * FROM spoldzielnia_userzy")) {
             ResultSet rs = ps.executeQuery();
             List<User> list = new ArrayList<>();
