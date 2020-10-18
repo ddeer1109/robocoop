@@ -29,6 +29,9 @@ public class CartControlller {
 
     @PostMapping("/order")
     public String order(@RequestParam("product_id") String productId, @RequestParam(value = "quantity", required = true) BigDecimal quantity) {
+        if (quantity == null) {
+            throw new RuntimeException("Quantity is mandatory");
+        }
         cart.getItems().add(new Cart.Item(productDAO.byId(productId), quantity));
         // TODO make this context independent
         return "redirect:/cart";
