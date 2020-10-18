@@ -9,7 +9,8 @@
 <div th:insert="header :: menu">...</div>
 
 <div id="main">
-    Koszyk
+    Koszyk:
+    <div th:text="${cart.items}"></div>
 </div>
 
 </body>

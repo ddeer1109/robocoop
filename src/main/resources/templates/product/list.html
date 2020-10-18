@@ -21,7 +21,7 @@
             <td th:text="'0 ' +     ${product.unit}"></td>
             <td></td>
             <td>
-                <form action="/product/order">
+                <form action="/order" method="post">
                     <input type="hidden" name="product_id" th:value="${product.id}">
                     <input type="text" style="width:40px" name="ilosc"><span
                         th:text="${product.unit}"></span>&nbsp;&nbsp;<input type="submit"
