@@ -24,6 +24,7 @@
                 <td></td>
                 <td>
                     <form action="/order" method="post">
+                        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
                         <input type="hidden" name="product_id" th:value="${product.id}">
                         <input type="text" style="width:40px" name="quantity"><span
                             th:text="${product.unit}"></span>&nbsp;&nbsp;<input type="submit"

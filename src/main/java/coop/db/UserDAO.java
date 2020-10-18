@@ -24,14 +24,33 @@ public class UserDAO {
             ResultSet rs = ps.executeQuery();
             List<User> list = new ArrayList<>();
             while (rs.next()) {
-                User user = new User();
-                user.setId(rs.getInt("id"));
-                user.setEmail(rs.getString("email"));
-                user.setUsername(rs.getString("email"));
-                user.setPassword(rs.getString("haslo"));
+                User user = mapUser(rs);
                 list.add(user);
             }
             return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private User mapUser(ResultSet rs) throws SQLException {
+        User user = new User();
+        user.setId(rs.getInt("id"));
+        user.setEmail(rs.getString("email"));
+        user.setUsername(rs.getString("email"));
+        user.setPassword(rs.getString("haslo"));
+        return user;
+    }
+
+    public User byUsername(String username) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT * FROM spoldzielnia_userzy WHERE email = ?")) {
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                return null;
+            }
+            return mapUser(rs);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
