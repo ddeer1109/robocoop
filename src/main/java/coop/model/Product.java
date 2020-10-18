@@ -8,12 +8,14 @@ public class Product {
     private String name;
     private BigDecimal price;
     private String unit;
+    private String categoryId;
 
-    public Product(String id, String name, BigDecimal price, String unit) {
+    public Product(String id, String name, BigDecimal price, String unit, String categoryId) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.unit = unit;
+        this.categoryId = categoryId;
     }
 
     public String getId() {
@@ -30,5 +32,9 @@ public class Product {
 
     public String getUnit() {
         return unit;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
     }
 }
