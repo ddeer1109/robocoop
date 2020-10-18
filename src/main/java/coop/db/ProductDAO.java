@@ -1,6 +1,7 @@
 package coop.db;
 
 
+import coop.model.Category;
 import coop.model.Product;
 import org.springframework.stereotype.Repository;
 
@@ -51,6 +52,20 @@ public class ProductDAO {
             ResultSet rs = ps.executeQuery();
             rs.next();
             return mapProduct(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Category> categories() {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT * FROM spoldzielnia_kategorie")) {
+            ResultSet rs = ps.executeQuery();
+            List<Category> list = new ArrayList<>();
+            while (rs.next()) {
+                list.add(new Category(rs.getString("id"), rs.getString("nazwa")));
+            }
+            return list;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

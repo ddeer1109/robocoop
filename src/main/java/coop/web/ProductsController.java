@@ -1,6 +1,7 @@
 package coop.web;
 
 import coop.db.ProductDAO;
+import coop.model.Category;
 import coop.model.Product;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,12 +28,18 @@ public class ProductsController {
     @GetMapping("/products/list")
     public String doGet(HttpServletRequest request, HttpServletResponse response) {
         List<Product> all = productDAO.findAll();
-        Map<String, List<Product>> allByCategory = new HashMap<>();
+        List<Category> categories = productDAO.categories();
+        Map<String, Category> categoryMap = new HashMap<>();
+        for (Category category : categories) {
+            categoryMap.put(category.getId(), category);
+        }
+        Map<Category, List<Product>> allByCategory = new HashMap<>();
         for (Product product : all) {
-            List<Product> products = allByCategory.get(product.getCategoryId());
+            Category category = categoryMap.get(product.getCategoryId());
+            List<Product> products = allByCategory.get(category);
             if (products == null) {
                 products = new ArrayList<>();
-                allByCategory.put(product.getCategoryId(), products);
+                allByCategory.put(category, products);
             }
             products.add(product);
         }

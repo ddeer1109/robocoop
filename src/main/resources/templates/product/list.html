@@ -8,7 +8,7 @@
 <div th:insert="header :: header">...</div>
 <div id="main">
     <div th:each="category : ${productsByCategory}">
-        <h3 th:text="'Kategoria ' +     ${category.key}"></h3>
+        <h3 th:text="${category.key.name}"></h3>
         <table>
             <tr>
                 <th>produkt</th>
