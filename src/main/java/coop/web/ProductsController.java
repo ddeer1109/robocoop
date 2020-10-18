@@ -6,16 +6,9 @@ import coop.model.Product;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class ProductsController {
@@ -30,21 +23,18 @@ public class ProductsController {
         List<Product> all = productDAO.findAll();
         List<Category> categories = productDAO.categories();
         Map<String, Category> categoryMap = new HashMap<>();
+        Map<Category, List<Product>> productsByCategory = new LinkedHashMap<>();
         for (Category category : categories) {
             categoryMap.put(category.getId(), category);
+            productsByCategory.put(category, new ArrayList<>());
         }
-        Map<Category, List<Product>> allByCategory = new HashMap<>();
         for (Product product : all) {
             Category category = categoryMap.get(product.getCategoryId());
-            List<Product> products = allByCategory.get(category);
-            if (products == null) {
-                products = new ArrayList<>();
-                allByCategory.put(category, products);
-            }
+            List<Product> products = productsByCategory.get(category);
             products.add(product);
         }
 
-        request.setAttribute("productsByCategory", allByCategory);
+        request.setAttribute("productsByCategory", productsByCategory);
         return "product/list";
     }
 

@@ -59,7 +59,7 @@ public class ProductDAO {
 
     public List<Category> categories() {
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT * FROM spoldzielnia_kategorie")) {
+             PreparedStatement ps = conn.prepareStatement("SELECT * FROM spoldzielnia_kategorie ORDER BY id")) {
             ResultSet rs = ps.executeQuery();
             List<Category> list = new ArrayList<>();
             while (rs.next()) {
