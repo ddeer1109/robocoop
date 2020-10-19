@@ -23,11 +23,11 @@ public class UserDAO {
     }
 
     private User mapUser(ResultSet rs, int rowNum) throws SQLException {
-        User user = new User();
-        user.setId(rs.getInt("id"));
-        user.setEmail(rs.getString("email"));
-        user.setUsername(rs.getString("email"));
-        user.setPassword(rs.getString("haslo"));
+        User user = new User(
+        rs.getString("id"),
+        rs.getString("email"),
+        rs.getString("email"),
+        rs.getString("haslo"));
         return user;
     }
 
