@@ -2,38 +2,27 @@ package coop.db;
 
 
 import coop.model.User;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
-import java.sql.*;
-import java.util.ArrayList;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 @Repository
 public class UserDAO {
 
-    private DataSource dataSource;
+    private JdbcTemplate jdbcTemplate;
 
-    public UserDAO(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public UserDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     public List<User> findAll() {
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT * FROM spoldzielnia_userzy")) {
-            ResultSet rs = ps.executeQuery();
-            List<User> list = new ArrayList<>();
-            while (rs.next()) {
-                User user = mapUser(rs);
-                list.add(user);
-            }
-            return list;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        return jdbcTemplate.query("SELECT * FROM spoldzielnia_userzy", this::mapUser);
     }
 
-    private User mapUser(ResultSet rs) throws SQLException {
+    private User mapUser(ResultSet rs, int rowNum) throws SQLException {
         User user = new User();
         user.setId(rs.getInt("id"));
         user.setEmail(rs.getString("email"));
@@ -43,16 +32,6 @@ public class UserDAO {
     }
 
     public User byUsername(String username) {
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT * FROM spoldzielnia_userzy WHERE email = ?")) {
-            ps.setString(1, username);
-            ResultSet rs = ps.executeQuery();
-            if (!rs.next()) {
-                return null;
-            }
-            return mapUser(rs);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        return jdbcTemplate.queryForObject("SELECT * FROM spoldzielnia_userzy WHERE email = ?", this::mapUser, username);
     }
 }
