@@ -8,11 +8,13 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
-@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Cart {
 
-    private List<Item> items = new ArrayList<>();
+    private List<Item> items;
+
+    public Cart(List<Item> items) {
+        this.items = items;
+    }
 
     public List<Item> getItems() {
         return items;

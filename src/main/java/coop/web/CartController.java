@@ -16,18 +16,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class CartController {
 
-    private final Cart cart;
     private final ProductDAO productDAO;
     private final OrderDAO orderDAO;
     private final UserDAO userDAO;
     private final RoundDAO roundDAO;
 
-    public CartController(Cart cart, ProductDAO productDAO, OrderDAO orderDAO, UserDAO userDAO, RoundDAO roundDAO) {
-        this.cart = cart;
+    public CartController(ProductDAO productDAO, OrderDAO orderDAO, UserDAO userDAO, RoundDAO roundDAO) {
         this.productDAO = productDAO;
         this.orderDAO = orderDAO;
         this.userDAO = userDAO;
@@ -35,8 +35,12 @@ public class CartController {
     }
 
     @GetMapping("/cart")
-    public String cart(Model model) {
-        model.addAttribute("cart", cart);
+    public String cart(HttpServletRequest request, Model model) {
+        User user = userDAO.byUsername(request.getRemoteUser());
+        Round currentRound = roundDAO.current();
+        List<Order> orders = orderDAO.byUserAndRound(user.getId(), currentRound.getId());
+        List<Cart.Item> items = orders.stream().map(o -> new Cart.Item(productDAO.byId(o.getProductId()), o.getQuantity())).collect(Collectors.toList());
+        model.addAttribute("cart", new Cart(items));
         return "cart";
     }
 
@@ -45,7 +49,6 @@ public class CartController {
         if (quantity == null) {
             throw new RuntimeException("Quantity is mandatory");
         }
-        cart.getItems().add(new Cart.Item(productDAO.byId(productId), quantity));
         User user = userDAO.byUsername(request.getRemoteUser());
         Round currentRound = roundDAO.current();
         orderDAO.add(new Order(productId, currentRound.getId(), user.getId(), quantity ));
