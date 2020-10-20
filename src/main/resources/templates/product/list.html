@@ -19,7 +19,7 @@
             </tr>
             <tr th:each="item:${category.value}">
                 <td th:text="${item.product.name}"></td>
-                <td th:text="${item.product.price}+' za ' + ${item.product.unit}"></td>
+                <td th:text="${#numbers.formatDecimal(item.product.price, 1, 2)} +' zł za ' + ${item.product.unit}"></td>
                 <td th:text="${item.quantity}+ ' ' + ${item.product.unit}"></td>
                 <td></td>
                 <td>
