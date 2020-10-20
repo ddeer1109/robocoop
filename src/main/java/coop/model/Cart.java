@@ -1,11 +1,6 @@
 package coop.model;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.stereotype.Component;
-
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
@@ -50,15 +45,23 @@ public class Cart {
         }
 
         public BigDecimal getMissingToTransactionalQuantity() {
-          return new BigDecimal(product.getTransactionalQuantity()).subtract(quantity.remainder(new BigDecimal(product.getTransactionalQuantity())));
+            return new BigDecimal(product.getTransactionalQuantity()).subtract(quantity.remainder(new BigDecimal(product.getTransactionalQuantity())));
         }
 
-        @Override
-        public String toString() {
-            return "Item{" +
-                    "product='" + product + '\'' +
-                    ", quantity=" + quantity +
-                    '}';
+        public String getStatus() {
+            if (getQuantity().equals(BigDecimal.ZERO)) {
+                return "empty";
+            }
+            if (getMissingToTransactionalQuantity().compareTo(new BigDecimal(product.getTransactionalQuantity())) == 0) {
+                return "complete";
+            }
+
+            if (getQuantity().compareTo(new BigDecimal(product.getTransactionalQuantity())) < 0) {
+                return "incomplete";
+            }
+
+            return "complete-incomplete";
         }
+
     }
 }

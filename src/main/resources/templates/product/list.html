@@ -17,7 +17,7 @@
                 <th>brakuje do pełnego zamówienia</th>
                 <th>twoje zamówienie</th>
             </tr>
-            <tr th:each="item:${category.value}">
+            <tr th:each="item:${category.value}" th:class="${item.status}">
                 <td th:text="${item.product.name}"></td>
                 <td th:text="${#numbers.formatDecimal(item.product.price, 1, 2)} +' zł za ' + ${item.product.unit}"></td>
                 <td th:text="${item.quantity}+ ' ' + ${item.product.unit}"></td>

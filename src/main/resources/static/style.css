@@ -32,7 +32,6 @@ h1, h2 {
 }
 
 td {
-    background: #ddd;
     border: 1px solid black;
     padding: 5px;
 }
@@ -42,4 +41,20 @@ td {
     margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.empty {
+    background: #ddd;
+}
+
+.complete {
+    background-color: #00dd00;
+}
+
+.incomplete {
+    background-color: #ffff00;
+}
+
+.complete-incomplete {
+    background-color: pink;
 }
