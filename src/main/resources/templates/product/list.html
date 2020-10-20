@@ -23,7 +23,7 @@
                 <td th:text="${item.quantity}+ ' ' + ${item.product.unit}"></td>
                 <td></td>
                 <td>
-                    <form action="/order" method="post">
+                    <form th:action="@{/order}" method="post">
                         <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
                         <input type="hidden" name="product_id" th:value="${item.product.id}">
                         <input type="text" style="width:40px" name="quantity"><span
