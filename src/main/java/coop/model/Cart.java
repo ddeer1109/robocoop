@@ -49,6 +49,10 @@ public class Cart {
             return product.getPrice().multiply(quantity);
         }
 
+        public BigDecimal getMissingToTransactionalQuantity() {
+          return new BigDecimal(product.getTransactionalQuantity()).subtract(quantity.remainder(new BigDecimal(product.getTransactionalQuantity())));
+        }
+
         @Override
         public String toString() {
             return "Item{" +

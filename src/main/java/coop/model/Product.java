@@ -9,13 +9,15 @@ public class Product {
     private BigDecimal price;
     private String unit;
     private String categoryId;
+    private int transactionalQuantity;
 
-    public Product(String id, String name, BigDecimal price, String unit, String categoryId) {
+    public Product(String id, String name, BigDecimal price, String unit, String categoryId, int transactionalQuantity) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.unit = unit;
         this.categoryId = categoryId;
+        this.transactionalQuantity = transactionalQuantity;
     }
 
     public String getId() {
@@ -36,5 +38,9 @@ public class Product {
 
     public String getCategoryId() {
         return categoryId;
+    }
+
+    public int getTransactionalQuantity() {
+        return transactionalQuantity;
     }
 }

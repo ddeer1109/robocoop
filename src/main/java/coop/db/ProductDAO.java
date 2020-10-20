@@ -28,7 +28,8 @@ public class ProductDAO {
                 rs.getString("nazwa"),
                 rs.getBigDecimal("cena_za_jednostke"),
                 rs.getString("jednostka"),
-                rs.getString("kategoria"));
+                rs.getString("kategoria"),
+                rs.getInt("ilosc_rozliczeniowa"));
     }
 
     public Product byId(String productId) {
