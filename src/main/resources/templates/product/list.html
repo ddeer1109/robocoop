@@ -17,17 +17,17 @@
                 <th>brakuje do pełnego zamówienia</th>
                 <th>twoje zamówienie</th>
             </tr>
-            <tr th:each="product:${category.value}">
-                <td th:text="${product.name}"></td>
-                <td th:text="${product.price}+' za ' + ${product.unit}"></td>
-                <td th:text="'0 ' +     ${product.unit}"></td>
+            <tr th:each="item:${category.value}">
+                <td th:text="${item.product.name}"></td>
+                <td th:text="${item.product.price}+' za ' + ${item.product.unit}"></td>
+                <td th:text="${item.quantity}+ ' ' + ${item.product.unit}"></td>
                 <td></td>
                 <td>
                     <form action="/order" method="post">
                         <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
-                        <input type="hidden" name="product_id" th:value="${product.id}">
+                        <input type="hidden" name="product_id" th:value="${item.product.id}">
                         <input type="text" style="width:40px" name="quantity"><span
-                            th:text="${product.unit}"></span>&nbsp;&nbsp;<input type="submit"
+                            th:text="${item.product.unit}"></span>&nbsp;&nbsp;<input type="submit"
                                                                                 value="zamów">
                     </form>
                 </td>
