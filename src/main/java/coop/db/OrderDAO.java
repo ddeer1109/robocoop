@@ -17,9 +17,9 @@ public class OrderDAO {
     }
 
     public void add(Order order) {
-        jdbcTemplate.update("INSERT INTO coop_old.spoldzielnia_zamowienia" +
-                        " (id_produktu, id_tury, id_usera, ilosc) VALUES (?, ?, ?, ?)",
-                order.getProductId(), order.getRoundId(), order.getUserId(), order.getQuantity());
+            jdbcTemplate.update("INSERT INTO spoldzielnia_zamowienia" +
+                            " (id_produktu, id_tury, id_usera, ilosc) VALUES (?, ?, ?, ?)",
+                    order.getProductId(), order.getRoundId(), order.getUserId(), order.getQuantity());
     }
 
     public List<Order> byUserAndRound(String userId, String roundId) {
