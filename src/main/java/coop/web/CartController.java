@@ -36,12 +36,20 @@ public class CartController {
 
     @GetMapping("/cart")
     public String cart(HttpServletRequest request, Model model) {
-        User user = userDAO.byUsername(request.getRemoteUser());
+        String username = request.getRemoteUser();
         Round currentRound = roundDAO.current();
-        List<Order> orders = orderDAO.byUserAndRound(user.getId(), currentRound.getId());
-        List<Cart.Item> items = orders.stream().map(o -> new Cart.Item(productDAO.byId(o.getProductId()), o.getQuantity())).collect(Collectors.toList());
-        model.addAttribute("cart", new Cart(items));
+        String roundId = currentRound.getId();
+        Cart cart = getCartForUserAndRound(username, roundId);
+        model.addAttribute("cart", cart);
         return "cart";
+    }
+
+    private Cart getCartForUserAndRound(String username, String roundId) {
+        User user = userDAO.byUsername(username);
+        List<Order> orders = orderDAO.byUserAndRound(user.getId(), roundId);
+        List<Cart.Item> items = orders.stream().map(o -> new Cart.Item(productDAO.byId(o.getProductId()), o.getQuantity())).collect(Collectors.toList());
+        Cart cart = new Cart(items);
+        return cart;
     }
 
     @PostMapping("/order")
