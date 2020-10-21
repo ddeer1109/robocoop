@@ -2,7 +2,10 @@ package coop.db;
 
 import coop.model.Round;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class RoundDAO {
@@ -18,8 +21,17 @@ public class RoundDAO {
         return byId(currentRoundId);
     }
 
-    private Round byId(String id) {
+    public Round byId(String id) {
         return jdbc.queryForObject("SELECT * FROM spoldzielnia_tury_zakupow WHERE id = ?",
-                (rs, rowNum) -> new Round(rs.getString("id"), rs.getString("nazwa")), id);
+                getRoundRowMapper(), id);
     }
+
+    public List<Round> all() {
+        return jdbc.query("SELECT * FROM spoldzielnia_tury_zakupow ORDER BY id DESC", getRoundRowMapper());
+    }
+
+    private RowMapper<Round> getRoundRowMapper() {
+        return (rs, rowNum) -> new Round(rs.getString("id"), rs.getString("nazwa"));
+    }
+
 }
