@@ -6,9 +6,9 @@
 <body>
 <div th:insert="header :: header">...</div>
 <div id="main">
-    <div th:each="round:${rounds}">
-        <h3 th:inline="text">[[${round.name}]]</h3>
-        <p>Razem: 0 zł + 0 na fundusz gromadzki = 0 zł</p>
+    <div th:each="item:${history}">
+        <h3 th:inline="text">[[${item.round.name}]]</h3>
+        <p th:inline="text">Razem: [[${#numbers.formatDecimal(item.cart.total, 1, 2)}]] zł + X na fundusz gromadzki = Y zł</p>
     </div>
 </div>
 </body>
