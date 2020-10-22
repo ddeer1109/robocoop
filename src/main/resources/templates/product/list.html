@@ -24,7 +24,6 @@
                 <td th:text="${item.missingToTransactionalQuantity + ' ' + item.product.unit + ' (z ' + item.product.transactionalQuantity + ' ' + item.product.unit + ')' }"></td>
                 <td>
                     <form th:action="@{/order}" method="post">
-                        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
                         <input type="hidden" name="product_id" th:value="${item.product.id}">
                         <input type="text" style="width:40px" name="quantity"><span
                             th:text="${item.product.unit}"></span>&nbsp;&nbsp;<input type="submit"
