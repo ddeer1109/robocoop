@@ -3,7 +3,6 @@ package coop.model;
 import coop.db.OrderDAO;
 import coop.db.ProductDAO;
 import coop.db.UserDAO;
-import coop.web.CartController;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +24,7 @@ public class CoopService {
     public Cart getCartForUserAndRound(String username, String roundId) {
         User user = userDAO.byUsername(username);
         List<Order> orders = orderDAO.byUserAndRound(user.getId(), roundId);
-        List<Cart.Item> items = orders.stream().map(o -> new Cart.Item(productDAO.byId(o.getProductId()), o.getQuantity())).collect(Collectors.toList());
+        List<Cart.Item> items = orders.stream().map(o -> new Cart.Item(o.getId(), productDAO.byId(o.getProductId()), o.getQuantity())).collect(Collectors.toList());
         return new Cart(items);
     }
 }

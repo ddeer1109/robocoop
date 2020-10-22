@@ -3,7 +3,6 @@ package coop.web;
 import coop.db.OrderDAO;
 import coop.db.ProductDAO;
 import coop.db.RoundDAO;
-import coop.model.Cart;
 import coop.model.Category;
 import coop.model.Order;
 import coop.model.Product;
@@ -34,7 +33,7 @@ public class ProductsController {
         List<Category> categories = productDAO.categories();
         Map<String, List<Order>> ordersByProduct = new HashMap<>();
         Map<String, Category> categoryMap = new HashMap<>();
-        Map<Category, List<Cart.Item>> productsByCategory = new LinkedHashMap<>();
+        Map<Category, List<ProductDetails>> productsByCategory = new LinkedHashMap<>();
         for (Category category : categories) {
             categoryMap.put(category.getId(), category);
             productsByCategory.put(category, new ArrayList<>());
@@ -49,8 +48,8 @@ public class ProductsController {
         }
         for (Product product : all) {
             Category category = categoryMap.get(product.getCategoryId());
-            List<Cart.Item> products = productsByCategory.get(category);
-            products.add(new Cart.Item(product, getTotalQuantity(ordersByProduct.get(product.getId()))));
+            List<ProductDetails> products = productsByCategory.get(category);
+            products.add(new ProductDetails(product, getTotalQuantity(ordersByProduct.get(product.getId()))));
         }
 
         request.setAttribute("productsByCategory", productsByCategory);

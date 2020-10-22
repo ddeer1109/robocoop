@@ -58,3 +58,7 @@ td {
 .complete-incomplete {
     background-color: pink;
 }
+
+.remove-from-cart-form {
+    display: inline;
+}

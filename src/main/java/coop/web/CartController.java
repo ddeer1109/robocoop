@@ -44,8 +44,19 @@ public class CartController {
         }
         User user = userDAO.byUsername(request.getRemoteUser());
         Round currentRound = roundDAO.current();
-        orderDAO.add(new Order(productId, currentRound.getId(), user.getId(), quantity));
+        orderDAO.add(new Order(null, productId, currentRound.getId(), user.getId(), quantity));
         // TODO make this context independent
+        return "redirect:/cart";
+    }
+
+    @PostMapping("/cart/remove")
+    public String removeItem(HttpServletRequest request, @RequestParam("order_id") String orderId) {
+        User user = userDAO.byUsername(request.getRemoteUser());
+        Order order = orderDAO.byId(orderId);
+        if (!order.getUserId().equals(user.getId())) {
+            throw new RuntimeException("User " + user.getId() + " trying to remove order (" + orderId +") of other user");
+        }
+        orderDAO.delete(orderId);
         return "redirect:/cart";
     }
 }

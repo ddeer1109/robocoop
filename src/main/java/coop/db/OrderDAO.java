@@ -34,10 +34,20 @@ public class OrderDAO {
 
     private RowMapper<Order> getOrderRowMapper() {
         return (rs, rowNum) -> new Order(
+                rs.getString("id"),
                 rs.getString("id_produktu"),
                 rs.getString("id_tury"),
                 rs.getString("id_usera"),
                 rs.getBigDecimal("ilosc")
         );
+    }
+
+    public Order byId(String orderId) {
+        return jdbcTemplate.queryForObject("SELECT * FROM spoldzielnia_zamowienia WHERE id = ?",
+                getOrderRowMapper(), orderId);
+    }
+
+    public void delete(String orderId) {
+        jdbcTemplate.update("DELETE FROM spoldzielnia_zamowienia WHERE id = ?", orderId);
     }
 }

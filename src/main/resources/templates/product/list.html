@@ -20,7 +20,7 @@
             <tr th:each="item:${category.value}" th:class="${item.status}">
                 <td th:text="${item.product.name}"></td>
                 <td th:text="${#numbers.formatDecimal(item.product.price, 1, 2)} +' zł za ' + ${item.product.unit}"></td>
-                <td th:text="${item.quantity}+ ' ' + ${item.product.unit}"></td>
+                <td th:text="${item.totalQuantity}+ ' ' + ${item.product.unit}"></td>
                 <td th:text="${item.missingToTransactionalQuantity + ' ' + item.product.unit + ' (z ' + item.product.transactionalQuantity + ' ' + item.product.unit + ')' }"></td>
                 <td>
                     <form th:action="@{/order}" method="post">

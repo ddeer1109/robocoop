@@ -24,12 +24,18 @@ public class Cart {
     }
 
     public static class Item {
+        private final String orderId;
         private final Product product;
         private final BigDecimal quantity;
 
-        public Item(Product product, BigDecimal quantity) {
+        public Item(String orderId, Product product, BigDecimal quantity) {
+            this.orderId = orderId;
             this.product = product;
             this.quantity = quantity;
+        }
+
+        public String getOrderId() {
+            return orderId;
         }
 
         public Product getProduct() {
@@ -42,25 +48,6 @@ public class Cart {
 
         public BigDecimal getAmount() {
             return product.getPrice().multiply(quantity);
-        }
-
-        public BigDecimal getMissingToTransactionalQuantity() {
-            return new BigDecimal(product.getTransactionalQuantity()).subtract(quantity.remainder(new BigDecimal(product.getTransactionalQuantity())));
-        }
-
-        public String getStatus() {
-            if (getQuantity().equals(BigDecimal.ZERO)) {
-                return "empty";
-            }
-            if (getMissingToTransactionalQuantity().compareTo(new BigDecimal(product.getTransactionalQuantity())) == 0) {
-                return "complete";
-            }
-
-            if (getQuantity().compareTo(new BigDecimal(product.getTransactionalQuantity())) < 0) {
-                return "incomplete";
-            }
-
-            return "complete-incomplete";
         }
 
     }

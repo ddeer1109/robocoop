@@ -10,7 +10,12 @@
 
 <div id="main">
     <h2>Zamówione produkty</h2>
-    <p th:each="item:${cart.items}" th:text="${item.product.name} + ' - ' + ${#numbers.formatDecimal(item.quantity,1,2)} +' ' + ${item.product.unit} + ' - ' + ${#numbers.formatDecimal(item.amount,1,2)} + ' zł (' + ${#numbers.formatDecimal(item.product.price, 1, 2)}+' za ' + ${item.product.unit} + ')'"></p>
+    <div  th:each="item:${cart.items}">
+        <span th:text="${item.product.name} + ' - ' + ${#numbers.formatDecimal(item.quantity,1,2)} +' ' + ${item.product.unit} + ' - ' + ${#numbers.formatDecimal(item.amount,1,2)} + ' zł (' + ${#numbers.formatDecimal(item.product.price, 1, 2)}+' za ' + ${item.product.unit} + ')'"></span>
+    <form class="remove-from-cart-form" th:action="@{/cart/remove}" method="post">
+        <input type="hidden" name="order_id" th:value="${item.orderId}">
+        <button>Usuń z koszyka</button></form>
+    </div>
 
     <p><b>Razem: <span th:text="${#numbers.formatDecimal(cart.total, 1, 2)}">3.75</span> zł + 10% na fundusz gromadzki</b></p>
     <I>Uwaga! Wyliczenie jest orientacyjne (bazuje na cenach uzyskanych przy poprzednich zakupach)</i>

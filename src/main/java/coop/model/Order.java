@@ -3,15 +3,20 @@ package coop.model;
 import java.math.BigDecimal;
 
 public class Order {
-    private final String productId, roundId, userId;
+    private final String id, productId, roundId, userId;
 
     private final BigDecimal quantity;
 
-    public Order(String productId, String roundId, String userId, BigDecimal quantity) {
+    public Order(String id, String productId, String roundId, String userId, BigDecimal quantity) {
+        this.id = id;
         this.productId = productId;
         this.roundId = roundId;
         this.userId = userId;
         this.quantity = quantity;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getProductId() {
