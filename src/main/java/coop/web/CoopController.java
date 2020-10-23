@@ -39,6 +39,7 @@ public class CoopController {
 
     @GetMapping("/total")
     public String total(Model model) {
+        model.addAttribute("round", roundDAO.current());
         model.addAttribute("orders", service.getProductsByCategory());
         return "total";
     }
