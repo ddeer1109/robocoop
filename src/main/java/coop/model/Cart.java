@@ -23,6 +23,16 @@ public class Cart {
         return sum;
     }
 
+    public BigDecimal getCommunityFund() {
+        BigDecimal sum = BigDecimal.ZERO;
+        for (Item item : items) {
+            sum = sum.add(item.getAmount());
+        }
+        sum = sum.divide(BigDecimal.valueOf(10), 10, 2);
+
+        return sum;
+    }
+
     public static class Item {
         private final String orderId;
         private final Product product;
