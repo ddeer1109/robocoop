@@ -8,7 +8,7 @@
 <div id="main">
     <h2>Suma aktualnej tury zakupów</h2>
     <div  th:each="category : ${orders}">
-        <p th:each="item:${category.value}" th:text="${item.product.name} + ' - ' + ${item.totalQuantity} + ' ' + ${item.product.unit}"></p>
+        <p th:if="${item.totalQuantity > 0}" th:each="item:${category.value}" th:text="${item.product.name} + ' - ' + ${item.totalQuantity} + ' ' + ${item.product.unit}"></p>
     </div>
 </div>
 </body>
