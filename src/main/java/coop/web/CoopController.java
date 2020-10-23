@@ -38,7 +38,8 @@ public class CoopController {
     }
 
     @GetMapping("/total")
-    public String total() {
+    public String total(Model model) {
+        model.addAttribute("orders", service.getProductsByCategory());
         return "total";
     }
 

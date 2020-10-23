@@ -1,12 +1,15 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <link th:href="@{/style.css}" rel="stylesheet" />
+    <link th:href="@{/style.css}" rel="stylesheet"/>
 </head>
 <body>
 <div th:insert="header :: header">...</div>
 <div id="main">
     <h2>Suma aktualnej tury zakupów</h2>
+    <div  th:each="category : ${orders}">
+        <p th:each="item:${category.value}" th:text="${item.product.name} + ' - ' + ${item.totalQuantity} + ' ' + ${item.product.unit}"></p>
+    </div>
 </div>
 </body>
 </html>
