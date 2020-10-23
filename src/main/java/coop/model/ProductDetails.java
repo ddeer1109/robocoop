@@ -1,4 +1,4 @@
-package coop.web;
+package coop.model;
 
 import coop.model.Cart;
 import coop.model.Product;

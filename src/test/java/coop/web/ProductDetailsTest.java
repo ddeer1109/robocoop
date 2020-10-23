@@ -1,6 +1,7 @@
 package coop.web;
 
 import coop.model.Product;
+import coop.model.ProductDetails;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
