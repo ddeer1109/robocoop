@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Cart {
 
+    public static final BigDecimal COMMUNITY_FUND_RATE = new BigDecimal("0.1");
+
     private List<Item> items;
 
     public Cart(List<Item> items) {
@@ -21,6 +23,10 @@ public class Cart {
             sum = sum.add(item.getAmount());
         }
         return sum;
+    }
+
+    public BigDecimal getCommunityFund() {
+        return getTotal().multiply(COMMUNITY_FUND_RATE);
     }
 
     public static class Item {
