@@ -2,16 +2,18 @@ package coop.model;
 
 public class User {
 
-    private String id;
-    private String username;
-    private String email;
-    private String password;
+    private final String id;
+    private final String username;
+    private final String email;
+    private final String password;
+    private final boolean admin;
 
-    public User(String id, String username, String email, String password) {
+    public User(String id, String username, String email, String password, boolean admin) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.admin = admin;
     }
 
     public String getId() {
@@ -28,6 +30,10 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public boolean isAdmin() {
+        return admin;
     }
 
     @Override
