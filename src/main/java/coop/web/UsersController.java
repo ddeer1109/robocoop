@@ -18,7 +18,7 @@ public class UsersController {
         this.userDAO = userDAO;
     }
 
-    @GetMapping("/users/list")
+    @GetMapping("/admin/users/list")
     protected String doGet(HttpServletRequest request, HttpServletResponse response) {
         request.setAttribute("users", userDAO.findAll());
         return "/user/list";
