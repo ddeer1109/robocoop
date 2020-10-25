@@ -1,5 +1,6 @@
 package coop.db;
 
+import coop.model.Order;
 import coop.model.Round;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -34,4 +35,8 @@ public class RoundDAO {
         return (rs, rowNum) -> new Round(rs.getString("id"), rs.getString("nazwa"));
     }
 
+    public void add(Round round) {
+        jdbc.update("INSERT INTO spoldzielnia_tury_zakupow (nazwa) VALUES (?)",
+               round.getName());
+    }
 }
