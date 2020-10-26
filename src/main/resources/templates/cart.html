@@ -18,8 +18,8 @@
         <button>Usuń z koszyka</button></form>
     </div>
 
-    <p><b>Razem: <span th:text="${#numbers.formatDecimal(cart.total, 1, 2)}">3.75</span> zł + 10% na fundusz gromadzki <span th:text="${#numbers.formatDecimal(cart.communityFund, 1, 2)}">0.37</span> zł</b></p>
-    <I>Uwaga! Wyliczenie jest orientacyjne (bazuje na cenach uzyskanych przy poprzednich zakupach)</i>
+    <p><strong>Razem: <span th:text="${#numbers.formatDecimal(cart.total, 1, 2)}">3.75</span> zł + 10% na fundusz gromadzki <span th:text="${#numbers.formatDecimal(cart.communityFund, 1, 2)}">0.37</span> zł</strong></p>
+    <em>Uwaga! Wyliczenie jest orientacyjne (bazuje na cenach uzyskanych przy poprzednich zakupach)</em>
 </div>
 
 </body>
