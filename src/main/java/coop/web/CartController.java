@@ -45,7 +45,6 @@ public class CartController {
         User user = userDAO.byUsername(request.getRemoteUser());
         Round currentRound = roundDAO.current();
         orderDAO.add(new Order(null, productId, currentRound.getId(), user.getId(), quantity));
-        // TODO make this context independent
         return "redirect:/cart";
     }
 
