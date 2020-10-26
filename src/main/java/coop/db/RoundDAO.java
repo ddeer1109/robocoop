@@ -1,6 +1,5 @@
 package coop.db;
 
-import coop.model.Order;
 import coop.model.Round;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

@@ -4,10 +4,9 @@ import coop.model.Category;
 import coop.model.CoopService;
 import coop.model.ProductDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -21,10 +20,9 @@ public class ProductsController {
     }
 
     @GetMapping("/products/list")
-    public String doGet(HttpServletRequest request, HttpServletResponse response) {
+    public String doGet(Model model) {
         Map<Category, List<ProductDetails>> productsByCategory = service.getProductsByCategory();
-
-        request.setAttribute("productsByCategory", productsByCategory);
+        model.addAttribute("productsByCategory", productsByCategory);
         return "product/list";
     }
 

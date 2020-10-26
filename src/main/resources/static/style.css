@@ -3,7 +3,7 @@ ul {
     list-style-type: none;
     height: 40px;
     width: 800px;
-    padding: 0px;
+    padding: 0;
     margin: auto;
     text-align: center;
 }

@@ -2,10 +2,8 @@ package coop.web;
 
 import coop.db.UserDAO;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class UsersController {
@@ -17,8 +15,8 @@ public class UsersController {
     }
 
     @GetMapping("/admin/users/list")
-    protected String doGet(HttpServletRequest request, HttpServletResponse response) {
-        request.setAttribute("users", userDAO.findAll());
+    protected String doGet(Model model) {
+        model.addAttribute("users", userDAO.findAll());
         return "/user/list";
     }
 }

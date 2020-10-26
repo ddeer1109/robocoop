@@ -38,7 +38,8 @@ public class CartController {
     }
 
     @PostMapping("/order")
-    public String order(HttpServletRequest request, @RequestParam("product_id") String productId, @RequestParam(value = "quantity", required = true) BigDecimal quantity) {
+    public String order(HttpServletRequest request, @RequestParam("product_id") String productId, @RequestParam(value = "quantity") BigDecimal quantity) {
+        // TODO Check why it can be null if request param is required by default
         if (quantity == null) {
             throw new RuntimeException("Quantity is mandatory");
         }
