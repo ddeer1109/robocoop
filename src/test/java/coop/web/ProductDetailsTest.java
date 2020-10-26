@@ -47,7 +47,6 @@ class ProductDetailsTest {
     }
 
     private ProductDetails getProductDetails(int transactionalQuantity, BigDecimal orderedQuantity) {
-        ProductDetails item = new ProductDetails(new Product("", "", null, "", "", transactionalQuantity), orderedQuantity);
-        return item;
+        return new ProductDetails(new Product("", "", null, "", "", transactionalQuantity), orderedQuantity);
     }
 }

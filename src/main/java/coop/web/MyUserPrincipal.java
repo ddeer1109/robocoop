@@ -21,7 +21,7 @@ public class MyUserPrincipal implements UserDetails {
         if (user.isAdmin()) {
             return List.of(new SimpleGrantedAuthority("ADMIN"));
         }
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 
     @Override

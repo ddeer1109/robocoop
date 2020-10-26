@@ -44,11 +44,7 @@ public class CoopService {
             productsByCategory.put(category, new ArrayList<>());
         }
         for (Order order : orders) {
-            List<Order> ordersForProduct = ordersByProduct.get(order.getProductId());
-            if (ordersForProduct == null) {
-                ordersForProduct = new ArrayList<>();
-                ordersByProduct.put(order.getProductId(), ordersForProduct);
-            }
+            List<Order> ordersForProduct = ordersByProduct.computeIfAbsent(order.getProductId(), k -> new ArrayList<>());
             ordersForProduct.add(order);
         }
         for (Product product : all) {

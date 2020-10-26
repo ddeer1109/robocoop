@@ -1,8 +1,5 @@
 package coop.model;
 
-import coop.model.Cart;
-import coop.model.Product;
-
 import java.math.BigDecimal;
 
 public class ProductDetails {
