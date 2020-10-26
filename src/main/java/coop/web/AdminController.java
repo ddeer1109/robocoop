@@ -24,6 +24,11 @@ public class AdminController {
     @PostMapping("/admin/new_round")
     public String createNewRound(@RequestParam("round_name") String roundName) {
         roundDAO.add(new Round(null, roundName));
-        return "redirect:/new_round_create";
+        return "redirect:/admin/new_round_created";
     }
-}
+
+    @GetMapping("/admin/new_round_created")
+    public String newRoundCreated() {
+        return "new_round_created";
+    }
+    }
