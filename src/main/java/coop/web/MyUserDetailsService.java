@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
-    private UserDAO userDAO;
+    private final UserDAO userDAO;
 
     public MyUserDetailsService(UserDAO userDAO) {
         this.userDAO = userDAO;

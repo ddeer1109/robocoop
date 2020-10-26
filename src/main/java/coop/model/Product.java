@@ -4,12 +4,12 @@ import java.math.BigDecimal;
 
 public class Product {
 
-    private String id;
-    private String name;
-    private BigDecimal price;
-    private String unit;
-    private String categoryId;
-    private int transactionalQuantity;
+    private final String id;
+    private final String name;
+    private final BigDecimal price;
+    private final String unit;
+    private final String categoryId;
+    private final int transactionalQuantity;
 
     public Product(String id, String name, BigDecimal price, String unit, String categoryId, int transactionalQuantity) {
         this.id = id;

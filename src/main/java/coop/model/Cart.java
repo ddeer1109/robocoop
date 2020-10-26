@@ -7,7 +7,7 @@ public class Cart {
 
     public static final BigDecimal COMMUNITY_FUND_RATE = new BigDecimal("0.1");
 
-    private List<Item> items;
+    private final List<Item> items;
 
     public Cart(List<Item> items) {
         this.items = items;
