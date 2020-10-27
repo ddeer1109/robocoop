@@ -11,6 +11,7 @@
     <div th:each="category : ${productsByCategory}">
         <h3 th:text="${category.key.name}"></h3>
         <table>
+            <thead>
             <tr>
                 <th>produkt</th>
                 <th>cena (ostatnio uzyskana)</th>
@@ -18,6 +19,17 @@
                 <th>brakuje do pełnego zamówienia</th>
                 <th>twoje zamówienie</th>
             </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <th>produkt</th>
+                <th>cena (ostatnio uzyskana)</th>
+                <th>zamówiono</th>
+                <th>brakuje do pełnego zamówienia</th>
+                <th>twoje zamówienie</th>
+            </tr>
+            </tfoot>
+            <tbody>
             <tr th:each="item:${category.value}" th:class="${item.status}">
                 <td th:text="${item.product.name}"></td>
                 <td th:text="${#numbers.formatDecimal(item.product.price, 1, 2)} +' zł za ' + ${item.product.unit}"></td>
@@ -32,6 +44,7 @@
                     </form>
                 </td>
             </tr>
+            </tbody>
         </table>
         <hr>
     </div>
