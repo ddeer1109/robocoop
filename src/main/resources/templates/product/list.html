@@ -8,6 +8,7 @@
 <body>
 <div th:insert="header :: header">...</div>
 <div id="main">
+    <div class="error" th:text="${param.error}"></div>
     <div th:each="category : ${productsByCategory}">
         <h3 th:text="${category.key.name}"></h3>
         <table>
@@ -29,7 +30,7 @@
                 <td>
                     <form th:action="@{/order}" method="post">
                         <input type="hidden" name="product_id" th:value="${item.product.id}">
-                        <input type="number" name="quantity" required><span
+                        <input type="number" name="quantity" required th:step="${item.product.allowDecimalQuantity} ? '.01' : '1'"><span
                             th:text="${item.product.unit}"></span>&nbsp;&nbsp;<input type="submit"
                                                                                      value="zamów">
                     </form>

@@ -43,4 +43,8 @@ public class Product {
     public int getTransactionalQuantity() {
         return transactionalQuantity;
     }
+
+    public boolean getAllowDecimalQuantity() {
+        return getUnit().equals("kg");
+    }
 }

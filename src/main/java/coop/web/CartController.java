@@ -1,6 +1,7 @@
 package coop.web;
 
 import coop.db.OrderDAO;
+import coop.db.ProductDAO;
 import coop.db.RoundDAO;
 import coop.db.UserDAO;
 import coop.model.*;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @Controller
 public class CartController {
@@ -20,12 +23,14 @@ public class CartController {
     private final UserDAO userDAO;
     private final RoundDAO roundDAO;
     private final CoopService coopService;
+    private final ProductDAO productDAO;
 
-    public CartController(OrderDAO orderDAO, UserDAO userDAO, RoundDAO roundDAO, CoopService coopService) {
+    public CartController(OrderDAO orderDAO, UserDAO userDAO, RoundDAO roundDAO, CoopService coopService, ProductDAO productDAO) {
         this.orderDAO = orderDAO;
         this.userDAO = userDAO;
         this.roundDAO = roundDAO;
         this.coopService = coopService;
+        this.productDAO = productDAO;
     }
 
     @GetMapping("/cart")
@@ -43,6 +48,14 @@ public class CartController {
         if (quantity == null) {
             throw new RuntimeException("Quantity is mandatory");
         }
+
+        Product product = productDAO.byId(productId);
+        if (!product.getAllowDecimalQuantity()) {
+            if (!isIntegerValue(quantity)) {
+                return "redirect:/products/list?error=" + URLEncoder.encode("Niedozwolona wartosć - tylko wartosci całkowite!", StandardCharsets.UTF_8);
+            }
+        }
+
         User user = userDAO.byUsername(request.getRemoteUser());
         Round currentRound = roundDAO.current();
         orderDAO.add(new Order(null, productId, currentRound.getId(), user.getId(), quantity));
@@ -54,9 +67,18 @@ public class CartController {
         User user = userDAO.byUsername(request.getRemoteUser());
         Order order = orderDAO.byId(orderId);
         if (!order.getUserId().equals(user.getId())) {
-            throw new RuntimeException("User " + user.getId() + " trying to remove order (" + orderId +") of other user");
+            throw new RuntimeException("User " + user.getId() + " trying to remove order (" + orderId + ") of other user");
         }
         orderDAO.delete(orderId);
         return "redirect:/cart";
+    }
+
+    private static boolean isIntegerValue(BigDecimal bd) {
+        try {
+            bd.toBigIntegerExact();
+            return true;
+        } catch (ArithmeticException ex) {
+            return false;
+        }
     }
 }
