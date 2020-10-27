@@ -62,3 +62,7 @@ td {
 .remove-from-cart-form {
     display: inline;
 }
+
+input[type=number] {
+    width: 40px;
+}
