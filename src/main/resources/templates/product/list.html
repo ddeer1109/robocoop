@@ -29,7 +29,7 @@
                 <td>
                     <form th:action="@{/order}" method="post">
                         <input type="hidden" name="product_id" th:value="${item.product.id}">
-                        <input type="text" style="width:40px" name="quantity"><span
+                        <input type="number" style="width:40px" name="quantity" required><span
                             th:text="${item.product.unit}"></span>&nbsp;&nbsp;<input type="submit"
                                                                                      value="zamów">
                     </form>

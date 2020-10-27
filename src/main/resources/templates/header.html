@@ -5,17 +5,19 @@
 </head>
 
 <body>
-<div th:fragment="header">
+<header th:fragment="header">
     <h1>Witaj w Kooperatywie</h1>
-    <ul>
-        <li><a th:href="@{/info}">O spółdzielni</a></li>
-        <li><a th:href="@{/products/list}">Zamów produkty</a></li>
-        <li><a th:href="@{/cart}">Zobacz koszyk</a></li>
-        <li><a th:href="@{/history}">Moje rachunki</a></li>
-        <li><a th:href="@{/total}">Suma zamówień</a></li>
-        <li><a th:href="@{/logout}">Wyloguj</a></li>
-    </ul>
-</div>
+    <nav>
+        <ul>
+            <li><a th:href="@{/info}">O spółdzielni</a></li>
+            <li><a th:href="@{/products/list}">Zamów produkty</a></li>
+            <li><a th:href="@{/cart}">Zobacz koszyk</a></li>
+            <li><a th:href="@{/history}">Moje rachunki</a></li>
+            <li><a th:href="@{/total}">Suma zamówień</a></li>
+            <li><a th:href="@{/logout}">Wyloguj</a></li>
+        </ul>
+    </nav>
+</header>
 
 
 </body>
