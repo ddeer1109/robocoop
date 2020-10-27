@@ -20,15 +20,6 @@
                 <th>twoje zamówienie</th>
             </tr>
             </thead>
-            <tfoot>
-            <tr>
-                <th>produkt</th>
-                <th>cena (ostatnio uzyskana)</th>
-                <th>zamówiono</th>
-                <th>brakuje do pełnego zamówienia</th>
-                <th>twoje zamówienie</th>
-            </tr>
-            </tfoot>
             <tbody>
             <tr th:each="item:${category.value}" th:class="${item.status}">
                 <td th:text="${item.product.name}"></td>
@@ -40,7 +31,7 @@
                         <input type="hidden" name="product_id" th:value="${item.product.id}">
                         <input type="text" style="width:40px" name="quantity"><span
                             th:text="${item.product.unit}"></span>&nbsp;&nbsp;<input type="submit"
-                                                                                value="zamów">
+                                                                                     value="zamów">
                     </form>
                 </td>
             </tr>
