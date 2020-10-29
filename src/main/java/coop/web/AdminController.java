@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
+
 @Controller
 public class AdminController {
 
@@ -22,8 +24,8 @@ public class AdminController {
     }
 
     @PostMapping("/admin/new_round")
-    public String createNewRound(@RequestParam("round_name") String roundName) {
-        roundDAO.add(new Round(null, roundName, null));
+    public String createNewRound(@RequestParam("round_name") String roundName, @RequestParam("final_date") String finalDate){
+        roundDAO.add(new Round(null, roundName, LocalDate.parse(finalDate)));
         return "redirect:/admin/new_round_created";
     }
 

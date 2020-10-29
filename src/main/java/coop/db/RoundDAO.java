@@ -46,7 +46,7 @@ public class RoundDAO {
     }
 
     public void add(Round round) {
-        jdbc.update("INSERT INTO spoldzielnia_tury_zakupow (nazwa) VALUES (?)",
-                round.getName());
+        jdbc.update("INSERT INTO spoldzielnia_tury_zakupow (nazwa, data_zakonczenia) VALUES (?,?)",
+                round.getName(), round.getFinalDate());
     }
 }
