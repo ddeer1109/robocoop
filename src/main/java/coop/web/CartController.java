@@ -39,6 +39,7 @@ public class CartController {
         Round currentRound = roundDAO.current();
         Cart cart = coopService.getCartForUserAndRound(username, currentRound.getId());
         model.addAttribute("cart", cart);
+        model.addAttribute("orderingBlocked", coopService.isOrderingBlocked());
         return "cart";
     }
 
