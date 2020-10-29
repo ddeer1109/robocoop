@@ -49,7 +49,7 @@ public class CartController {
             throw new RuntimeException("Quantity is mandatory");
         }
 
-        if (!coopService.isOrderingAllowed()) {
+        if (coopService.isOrderingBlocked()) {
             return "redirect:/products/list?error=" + URLEncoder.encode("Nie można już zamawiać produktów!", StandardCharsets.UTF_8);
         }
 
@@ -74,7 +74,7 @@ public class CartController {
             throw new RuntimeException("User " + user.getId() + " trying to remove order (" + orderId + ") of other user");
         }
 
-        if (!coopService.isOrderingAllowed()) {
+        if (coopService.isOrderingBlocked()) {
             return "redirect:/cart?error=" + URLEncoder.encode("Nie można już usuwać zamówień!", StandardCharsets.UTF_8);
         }
 

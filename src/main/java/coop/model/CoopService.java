@@ -70,11 +70,11 @@ public class CoopService {
         return sum;
     }
 
-    public boolean isOrderingAllowed() {
+    public boolean isOrderingBlocked() {
         Round currentRound = roundDAO.current();
         LocalDate finalDate = currentRound.getFinalDate();
         LocalDateTime lastOrderTime = getLastOrderTime(finalDate);
-        return clock.now().isBefore(lastOrderTime);
+        return !clock.now().isBefore(lastOrderTime);
     }
 
     private LocalDateTime getLastOrderTime(LocalDate finalDate) {
