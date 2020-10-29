@@ -5,6 +5,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -31,11 +33,20 @@ public class RoundDAO {
     }
 
     private RowMapper<Round> getRoundRowMapper() {
-        return (rs, rowNum) -> new Round(rs.getString("id"), rs.getString("nazwa"));
+        return (rs, rowNum) -> {
+            Date finalDateSQL = rs.getDate("data_zakonczenia");
+            LocalDate finalDate;
+            if (finalDateSQL != null) {
+                finalDate = finalDateSQL.toLocalDate();
+            } else {
+                finalDate = null;
+            }
+            return new Round(rs.getString("id"), rs.getString("nazwa"), finalDate);
+        };
     }
 
     public void add(Round round) {
         jdbc.update("INSERT INTO spoldzielnia_tury_zakupow (nazwa) VALUES (?)",
-               round.getName());
+                round.getName());
     }
 }

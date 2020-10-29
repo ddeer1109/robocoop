@@ -49,6 +49,10 @@ public class CartController {
             throw new RuntimeException("Quantity is mandatory");
         }
 
+        if (!coopService.isOrderingAllowed()) {
+            return "redirect:/products/list?error=" + URLEncoder.encode("Nie można już zamawiać produktów!", StandardCharsets.UTF_8);
+        }
+
         Product product = productDAO.byId(productId);
         if (!product.getAllowDecimalQuantity()) {
             if (!isIntegerValue(quantity)) {
@@ -69,6 +73,11 @@ public class CartController {
         if (!order.getUserId().equals(user.getId())) {
             throw new RuntimeException("User " + user.getId() + " trying to remove order (" + orderId + ") of other user");
         }
+
+        if (!coopService.isOrderingAllowed()) {
+            return "redirect:/cart?error=" + URLEncoder.encode("Nie można już usuwać zamówień!", StandardCharsets.UTF_8);
+        }
+
         orderDAO.delete(orderId);
         return "redirect:/cart";
     }

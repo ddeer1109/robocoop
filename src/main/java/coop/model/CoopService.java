@@ -7,6 +7,8 @@ import coop.db.UserDAO;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -17,12 +19,14 @@ public class CoopService {
     private final OrderDAO orderDAO;
     private final UserDAO userDAO;
     private final RoundDAO roundDAO;
+    private final Clock clock;
 
-    public CoopService(ProductDAO productDAO, OrderDAO orderDAO, UserDAO userDAO, RoundDAO roundDAO) {
+    public CoopService(ProductDAO productDAO, OrderDAO orderDAO, UserDAO userDAO, RoundDAO roundDAO, Clock clock) {
         this.productDAO = productDAO;
         this.orderDAO = orderDAO;
         this.userDAO = userDAO;
         this.roundDAO = roundDAO;
+        this.clock = clock;
     }
 
     public Cart getCartForUserAndRound(String username, String roundId) {
@@ -64,5 +68,17 @@ public class CoopService {
             sum = sum.add(order.getQuantity());
         }
         return sum;
+    }
+
+    public boolean isOrderingAllowed() {
+        Round currentRound = roundDAO.current();
+        LocalDate finalDate = currentRound.getFinalDate();
+        LocalDateTime lastOrderTime = getLastOrderTime(finalDate);
+        return clock.now().isBefore(lastOrderTime);
+    }
+
+    private LocalDateTime getLastOrderTime(LocalDate finalDate) {
+        // Two days back. 20.00 o'clock
+        return finalDate.atStartOfDay().minusDays(1).minusHours(4);
     }
 }
