@@ -23,6 +23,7 @@ public class ProductsController {
     public String doGet(Model model) {
         Map<Category, List<ProductDetails>> productsByCategory = service.getProductsByCategory();
         model.addAttribute("productsByCategory", productsByCategory);
+        model.addAttribute("orderingBlocked", service.isOrderingBlocked());
         return "product/list";
     }
 
