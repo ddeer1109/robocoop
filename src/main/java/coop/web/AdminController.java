@@ -20,17 +20,24 @@ public class AdminController {
 
     @GetMapping("/admin/new_round")
     public String newRoundForm() {
-        return "new_round";
+        return "admin/new_round";
     }
 
     @PostMapping("/admin/new_round")
-    public String createNewRound(@RequestParam("round_name") String roundName, @RequestParam("final_date") String finalDate){
+    public String createNewRound(@RequestParam("round_name") String roundName, @RequestParam("final_date") String finalDate) {
         roundDAO.add(new Round(null, roundName, LocalDate.parse(finalDate)));
         return "redirect:/admin/new_round_created";
     }
 
     @GetMapping("/admin/new_round_created")
     public String newRoundCreated() {
-        return "new_round_created";
+        return "admin/new_round_created";
     }
+
+
+    @GetMapping("/admin")
+    public String admin() {
+        return "admin/admin";
     }
+}
+
