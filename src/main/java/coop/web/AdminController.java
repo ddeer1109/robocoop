@@ -1,5 +1,6 @@
 package coop.web;
 
+import coop.db.ConfigDAO;
 import coop.db.RoundDAO;
 import coop.model.Round;
 import org.springframework.stereotype.Controller;
@@ -13,9 +14,11 @@ import java.time.LocalDate;
 public class AdminController {
 
     private final RoundDAO roundDAO;
+    private final ConfigDAO configDAO;
 
-    public AdminController(RoundDAO roundDAO) {
+    public AdminController(RoundDAO roundDAO, ConfigDAO configDAO) {
         this.roundDAO = roundDAO;
+        this.configDAO = configDAO;
     }
 
     @GetMapping("/admin/new_round")
@@ -25,7 +28,8 @@ public class AdminController {
 
     @PostMapping("/admin/new_round")
     public String createNewRound(@RequestParam("round_name") String roundName, @RequestParam("final_date") String finalDate) {
-        roundDAO.add(new Round(null, roundName, LocalDate.parse(finalDate)));
+        String roundId = roundDAO.add(new Round(null, roundName, LocalDate.parse(finalDate)));
+        configDAO.setCurrentRound(roundId);
         return "redirect:/admin/new_round_created";
     }
 
