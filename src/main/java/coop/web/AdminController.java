@@ -20,7 +20,7 @@ public class AdminController {
 
     @GetMapping("/admin/new_round")
     public String newRoundForm() {
-        return "new_round";
+        return "admin/new_round";
     }
 
     @PostMapping("/admin/new_round")
@@ -31,7 +31,7 @@ public class AdminController {
 
     @GetMapping("/admin/new_round_created")
     public String newRoundCreated() {
-        return "new_round_created";
+        return "admin/new_round_created";
     }
 
 
