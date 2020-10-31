@@ -17,6 +17,6 @@ public class UsersController {
     @GetMapping("/admin/users/list")
     protected String doGet(Model model) {
         model.addAttribute("users", userDAO.findAll());
-        return "/admin/users_list";
+        return "admin/users_list";
     }
 }
