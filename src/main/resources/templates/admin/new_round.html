@@ -8,7 +8,7 @@
 <div th:insert="admin/header :: header">...</div>
 <div id="main">
     <form th:action="@{/admin/new_round}" method="post">
-        <div><label> Data zakończenia tury <input type="date" name="final_date"/> </label></div>
+        <div><label> Data zakończenia tury <input type="date" name="final_date" required="required"/> </label></div>
         <div><label> Nazwa tury <input type="text" name="round_name"/> </label></div>
         <div><input type="submit" value="Utwórz nową turę"/></div>
     </form>
