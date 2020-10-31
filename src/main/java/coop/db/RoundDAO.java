@@ -3,9 +3,13 @@ package coop.db;
 import coop.model.Round;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -45,8 +49,16 @@ public class RoundDAO {
         };
     }
 
-    public void add(Round round) {
-        jdbc.update("INSERT INTO spoldzielnia_tury_zakupow (nazwa, data_zakonczenia) VALUES (?,?)",
-                round.getName(), round.getFinalDate());
+    public String add(Round round) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbc.update(
+                connection -> {
+                    PreparedStatement ps = connection
+                            .prepareStatement("INSERT INTO spoldzielnia_tury_zakupow (nazwa, data_zakonczenia) VALUES (?,?)", Statement.RETURN_GENERATED_KEYS);
+                    ps.setString(1, round.getName());
+                    ps.setDate(2, Date.valueOf(round.getFinalDate()));
+                    return ps;
+                }, keyHolder);
+        return keyHolder.getKey().toString();
     }
 }
