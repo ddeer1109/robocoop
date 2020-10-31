@@ -6,7 +6,7 @@
     <link th:href="@{/style.css}" rel="stylesheet"/>
 </head>
 <body>
-<div th:insert="header :: header">...</div>
+<div th:insert="admin/header :: header">...</div>
 <div id="main">
     <ul>
         <li th:each="user:${users}" th:text="${user.id} + ' : ' + ${user.username}"></li>

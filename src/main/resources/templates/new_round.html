@@ -5,7 +5,7 @@
     <link th:href="@{/style.css}" rel="stylesheet"/>
 </head>
 <body>
-<div th:insert="header :: header">...</div>
+<div th:insert="admin/header :: header">...</div>
 <div id="main">
     <form th:action="@{/admin/new_round}" method="post">
         <div><label> Data zakończenia tury <input type="date" name="final_date"/> </label></div>
