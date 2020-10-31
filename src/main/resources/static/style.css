@@ -1,4 +1,4 @@
-ul {
+nav ul {
     background-color: #B10000;
     list-style-type: none;
     height: 40px;
@@ -8,11 +8,11 @@ ul {
     text-align: center;
 }
 
-ul li {
+nav ul li {
     float: left;
 }
 
-ul a {
+nav ul a {
     padding-right: 16px;
     padding-left: 16px;
     display: block;
@@ -23,7 +23,7 @@ ul a {
     color: #ffffff;
 }
 
-ul a:hover {
+nav ul a:hover {
     background-color: #6D0101;
 }
 
