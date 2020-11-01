@@ -8,10 +8,10 @@
         <version>2.3.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>coop</groupId>
-    <artifactId>coop</artifactId>
+    <groupId>org.masteukodeu</groupId>
+    <artifactId>robocoop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>coop</name>
+    <name>Robocoop</name>
     <description>Web app to run food cooperative</description>
 
     <properties>
