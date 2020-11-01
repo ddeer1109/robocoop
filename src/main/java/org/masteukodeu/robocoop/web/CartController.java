@@ -4,7 +4,6 @@ import org.masteukodeu.robocoop.db.OrderDAO;
 import org.masteukodeu.robocoop.db.ProductDAO;
 import org.masteukodeu.robocoop.db.RoundDAO;
 import org.masteukodeu.robocoop.db.UserDAO;
-import coop.model.*;
 import org.masteukodeu.robocoop.model.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
