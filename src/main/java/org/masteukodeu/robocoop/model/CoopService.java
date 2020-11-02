@@ -44,8 +44,10 @@ public class CoopService {
         Map<String, Category> categoryMap = new HashMap<>();
         Map<Category, List<ProductDetails>> productsByCategory = new LinkedHashMap<>();
         for (Category category : categories) {
-            categoryMap.put(category.getId(), category);
-            productsByCategory.put(category, new ArrayList<>());
+            if (!category.isHidden()) {
+                categoryMap.put(category.getId(), category);
+                productsByCategory.put(category, new ArrayList<>());
+            }
         }
         for (Order order : orders) {
             List<Order> ordersForProduct = ordersByProduct.computeIfAbsent(order.getProductId(), k -> new ArrayList<>());
@@ -54,7 +56,9 @@ public class CoopService {
         for (Product product : all) {
             Category category = categoryMap.get(product.getCategoryId());
             List<ProductDetails> products = productsByCategory.get(category);
-            products.add(new ProductDetails(product, getTotalQuantity(ordersByProduct.get(product.getId()))));
+            if (products != null) {
+                products.add(new ProductDetails(product, getTotalQuantity(ordersByProduct.get(product.getId()))));
+            }
         }
         return productsByCategory;
     }

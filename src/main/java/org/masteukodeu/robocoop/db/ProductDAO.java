@@ -38,7 +38,7 @@ public class ProductDAO {
 
     public List<Category> categories() {
         return jdbcTemplate.query("SELECT * FROM spoldzielnia_kategorie ORDER BY id",
-                (rs, rowNum) -> new Category(rs.getString("id"), rs.getString("nazwa")));
+                (rs, rowNum) -> new Category(rs.getString("id"), rs.getString("nazwa"), rs.getBoolean("ukryta")));
     }
 
 }
