@@ -21,7 +21,7 @@
     </div>
 
     <p><strong>Razem: <span th:text="${#numbers.formatDecimal(cart.total, 1, 2)}">3.75</span> zł + 10% na fundusz
-        gromadzki <span th:text="${#numbers.formatDecimal(cart.communityFund, 1, 2)}">0.37</span> zł</strong></p>
+        gromadzki <span th:text="${#numbers.formatDecimal(cart.communityFund, 1, 2)}">0.37</span> zł = <span th:text="${#numbers.formatDecimal(cart.TotalWithCommunity, 1, 2)}">4,12</span> zł </strong></p>
     <em>Uwaga! Wyliczenie jest orientacyjne (bazuje na cenach uzyskanych przy poprzednich zakupach)</em>
 </div>
 
