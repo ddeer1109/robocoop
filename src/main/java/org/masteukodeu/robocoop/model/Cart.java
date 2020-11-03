@@ -29,7 +29,7 @@ public class Cart {
         return getTotal().multiply(COMMUNITY_FUND_RATE);
     }
 
-    public BigDecimal getTotalWithCommunity() { return getTotal().add(getCommunityFund()); }
+    public BigDecimal getTotalWithCommunityFund() { return getTotal().add(getCommunityFund()); }
 
     public static class Item {
         private final String orderId;
