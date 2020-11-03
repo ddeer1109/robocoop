@@ -10,7 +10,7 @@
 <div id="main">
     <div class="error" th:text="${param.error}"></div>
     <div th:each="category : ${productsByCategory}">
-        <h3 th:text="${category.key.name}"></h3>
+        <h3 th:text="${category.key.category.name}"></h3>
         <table>
             <thead>
             <tr>
@@ -30,8 +30,10 @@
                 <td>
                     <form th:action="@{/order}" method="post">
                         <input type="hidden" name="product_id" th:value="${item.product.id}">
-                        <input type="number" name="quantity" required th:step="${item.product.allowDecimalQuantity} ? '.01' : '1'"><span
-                            th:text="${item.product.unit}"></span>&nbsp;&nbsp;<input type="submit" th:disabled="${orderingBlocked}"
+                        <input type="number" name="quantity" required
+                               th:step="${item.product.allowDecimalQuantity} ? '.01' : '1'"><span
+                            th:text="${item.product.unit}"></span>&nbsp;&nbsp;<input type="submit"
+                                                                                     th:disabled="${category.key.blocked}"
                                                                                      value="zamów">
                     </form>
                 </td>

@@ -85,4 +85,15 @@ public class CoopService {
         // Two days back. 20.00 o'clock
         return finalDate.atStartOfDay().minusDays(1).minusHours(4);
     }
+
+    public boolean isCategoryBlocked(Category category) {
+        if (category.getBlockedPeriod() == null) {
+            return isOrderingBlocked();
+        } else {
+            Round currentRound = roundDAO.current();
+            LocalDate finalDate = currentRound.getFinalDate();
+            LocalDateTime lastOrderTime = finalDate.atStartOfDay().minusHours(category.getBlockedPeriod().longValue());
+            return clock.now().isAfter(lastOrderTime);
+        }
+    }
 }

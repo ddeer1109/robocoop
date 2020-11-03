@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,14 @@ public class ProductsController {
     @GetMapping("/products/list")
     public String doGet(Model model) {
         Map<Category, List<ProductDetails>> productsByCategory = service.getProductsByCategory();
-        model.addAttribute("productsByCategory", productsByCategory);
+        Map<CategoryView, List<ProductDetails>> productsByCategoryView = new LinkedHashMap<>();
+        for (Map.Entry<Category, List<ProductDetails>> categoryListEntry : productsByCategory.entrySet()) {
+            productsByCategoryView.put(
+                    new CategoryView(categoryListEntry.getKey(), service.isCategoryBlocked(categoryListEntry.getKey())),
+                    categoryListEntry.getValue()
+            );
+        }
+        model.addAttribute("productsByCategory", productsByCategoryView);
         model.addAttribute("orderingBlocked", service.isOrderingBlocked());
         return "product/list";
     }
