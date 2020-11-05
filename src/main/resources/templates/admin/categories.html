@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Products</title>
+    <link th:href="@{/style.css}" rel="stylesheet"/>
+</head>
+<body>
+<div th:insert="header :: header">...</div>
+<div id="main">
+    <table>
+        <thead>
+        <tr>
+            <th>Nazwa</th>
+            <th>Ukryta</th>
+            <th>Okres Blokady w h</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="category:${categories}">
+            <td th:text="${category.name}"></td>
+            <td th:text="${category.hidden}"></td>
+            <td th:text="${category.blockedPeriod}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
