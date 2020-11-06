@@ -53,5 +53,11 @@ public class AdminController {
         model.addAttribute("categories", categoryDAO.all());
         return "admin/categories";
     }
+
+    @GetMapping("/admin/category/edit")
+    public String categories(Model model, String id) {
+        model.addAttribute("category", categoryDAO.byId(id));
+        return "admin/category_edit";
+    }
 }
 
