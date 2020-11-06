@@ -1,7 +1,7 @@
 package org.masteukodeu.robocoop.web;
 
+import org.masteukodeu.robocoop.db.CategoryDAO;
 import org.masteukodeu.robocoop.db.ConfigDAO;
-import org.masteukodeu.robocoop.db.ProductDAO;
 import org.masteukodeu.robocoop.db.RoundDAO;
 import org.masteukodeu.robocoop.model.Round;
 import org.springframework.stereotype.Controller;
@@ -17,12 +17,12 @@ public class AdminController {
 
     private final RoundDAO roundDAO;
     private final ConfigDAO configDAO;
-    private final ProductDAO productDAO;
+    private final CategoryDAO categoryDAO;
 
-    public AdminController(RoundDAO roundDAO, ConfigDAO configDAO, ProductDAO productDAO) {
+    public AdminController(RoundDAO roundDAO, ConfigDAO configDAO, CategoryDAO categoryDAO) {
         this.roundDAO = roundDAO;
         this.configDAO = configDAO;
-        this.productDAO = productDAO;
+        this.categoryDAO = categoryDAO;
     }
 
     @GetMapping("/admin/new_round")
@@ -50,7 +50,7 @@ public class AdminController {
 
     @GetMapping("/admin/categories")
     public String categories(Model model) {
-        model.addAttribute("categories", productDAO.categories());
+        model.addAttribute("categories", categoryDAO.all());
         return "admin/categories";
     }
 }

@@ -1,9 +1,6 @@
 package org.masteukodeu.robocoop.model;
 
-import org.masteukodeu.robocoop.db.OrderDAO;
-import org.masteukodeu.robocoop.db.ProductDAO;
-import org.masteukodeu.robocoop.db.RoundDAO;
-import org.masteukodeu.robocoop.db.UserDAO;
+import org.masteukodeu.robocoop.db.*;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -20,13 +17,15 @@ public class CoopService {
     private final UserDAO userDAO;
     private final RoundDAO roundDAO;
     private final Clock clock;
+    private final CategoryDAO categoryDAO;
 
-    public CoopService(ProductDAO productDAO, OrderDAO orderDAO, UserDAO userDAO, RoundDAO roundDAO, Clock clock) {
+    public CoopService(ProductDAO productDAO, OrderDAO orderDAO, UserDAO userDAO, RoundDAO roundDAO, Clock clock, CategoryDAO categoryDAO) {
         this.productDAO = productDAO;
         this.orderDAO = orderDAO;
         this.userDAO = userDAO;
         this.roundDAO = roundDAO;
         this.clock = clock;
+        this.categoryDAO = categoryDAO;
     }
 
     public Cart getCartForUserAndRound(String username, String roundId) {
@@ -39,7 +38,7 @@ public class CoopService {
     public Map<Category, List<ProductDetails>> getProductsByCategory() {
         List<Order> orders = orderDAO.byRound(roundDAO.current().getId());
         List<Product> all = productDAO.findAll();
-        List<Category> categories = productDAO.categories();
+        List<Category> categories = categoryDAO.all();
         Map<String, List<Order>> ordersByProduct = new HashMap<>();
         Map<String, Category> categoryMap = new HashMap<>();
         Map<Category, List<ProductDetails>> productsByCategory = new LinkedHashMap<>();

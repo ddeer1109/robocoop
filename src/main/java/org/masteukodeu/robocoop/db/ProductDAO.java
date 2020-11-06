@@ -1,7 +1,6 @@
 package org.masteukodeu.robocoop.db;
 
 
-import org.masteukodeu.robocoop.model.Category;
 import org.masteukodeu.robocoop.model.Product;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -34,11 +33,6 @@ public class ProductDAO {
 
     public Product byId(String productId) {
         return jdbcTemplate.queryForObject("SELECT * FROM spoldzielnia_produkty WHERE id = ?", mapProduct(), productId);
-    }
-
-    public List<Category> categories() {
-        return jdbcTemplate.query("SELECT * FROM spoldzielnia_kategorie ORDER BY id",
-                (rs, rowNum) -> new Category(rs.getString("id"), rs.getString("nazwa"), rs.getBoolean("ukryta"), rs.getBigDecimal("okres_blokowania_w_godzinach")));
     }
 
 }
