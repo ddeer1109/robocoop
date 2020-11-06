@@ -9,7 +9,7 @@
 <div th:insert="admin/header :: header">...</div>
 <div id="main">
     <ul>
-        <li th:each="user:${users}" th:text="${user.id} + ' : ' + ${user.username}"></li>
+        <li th:each="user:${users}" th:text="${user.id}  + ' : ' + ${user.name} + ' : tel - ' + ${user.phone} + ' : ' + ${user.username} + ' :  admin - ' + ${user.admin} + ' : prawko - ' + ${user.hasDrivingLicense()}"></li>
     </ul>
 </div>
 </body>

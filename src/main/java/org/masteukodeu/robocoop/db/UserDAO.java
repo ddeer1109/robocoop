@@ -28,7 +28,10 @@ public class UserDAO {
                 rs.getString("email"),
                 rs.getString("email"),
                 rs.getString("haslo"),
-                rs.getBoolean("admin"));
+                rs.getBoolean("admin"),
+                rs.getString("nazwisko"),
+                rs.getString("telefon"),
+                rs.getBoolean("czy_prawko"));
     }
 
     public User byUsername(String username) {
