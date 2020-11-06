@@ -8,9 +8,29 @@
 <body>
 <div th:insert="admin/header :: header">...</div>
 <div id="main">
-    <ul>
-        <li th:each="user:${users}" th:text="${user.id}  + ' : ' + ${user.name} + ' : tel - ' + ${user.phone} + ' : ' + ${user.username} + ' :  admin - ' + ${user.admin} + ' : prawko - ' + ${user.hasDrivingLicense()}"></li>
-    </ul>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Imię i nazwisko</th>
+            <th>Telefon</th>
+            <th>Email</th>
+            <th>Admin</th>
+            <th>Prawko</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user:${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.phone}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.admin}"></td>
+            <td th:text="${user.hasDrivingLicense()}"></td>
+        </tr>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>
