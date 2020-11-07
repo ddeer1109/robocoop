@@ -30,4 +30,12 @@ public class CategoryDAO {
     private static Category mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new Category(rs.getString("id"), rs.getString("nazwa"), rs.getBoolean("ukryta"), rs.getBigDecimal("okres_blokowania_w_godzinach"));
     }
+
+    public void update(Category category) {
+        jdbc.update("UPDATE spoldzielnia_kategorie SET nazwa = ?, ukryta = ?, okres_blokowania_w_godzinach = ? WHERE id = ?",
+                category.getName(),
+                category.isHidden(),
+                category.getBlockedPeriod(),
+                category.getId());
+    }
 }

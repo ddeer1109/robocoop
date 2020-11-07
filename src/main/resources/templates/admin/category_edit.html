@@ -9,10 +9,11 @@
 <div th:insert="admin/header :: header">...</div>
 <div id="main">
 
-    <form th:action="@{category/edit}" method="post">
+    <form th:action="@{/admin/category/edit}" method="post">
         <input type="hidden" name="id" th:value="${category.id}"/>
         <label for="name">Nazwa</label> <input id="name" name="name" th:value="${category.name}"/>
-        <label for="hidden">Ukryta</label> <input id="hidden" name="hidden" th:value="${category.hidden}"/>
+        <label for="hidden">Ukryta</label> <input id="hidden" name="hidden" type="checkbox"
+                                                  th:checked="${category.hidden}"/>
         <label for="blocked_period">Okres Blokady w h</label> <input id="blocked_period" name="blocked_period"
                                                                      th:value="${category.blockedPeriod}"/>
         <input type="submit" value="Zapisz"/>

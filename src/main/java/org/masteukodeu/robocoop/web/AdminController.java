@@ -3,6 +3,7 @@ package org.masteukodeu.robocoop.web;
 import org.masteukodeu.robocoop.db.CategoryDAO;
 import org.masteukodeu.robocoop.db.ConfigDAO;
 import org.masteukodeu.robocoop.db.RoundDAO;
+import org.masteukodeu.robocoop.model.Category;
 import org.masteukodeu.robocoop.model.Round;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Controller
@@ -55,9 +57,16 @@ public class AdminController {
     }
 
     @GetMapping("/admin/category/edit")
-    public String categories(Model model, String id) {
+    public String categoryEditForm(Model model, String id) {
         model.addAttribute("category", categoryDAO.byId(id));
         return "admin/category_edit";
+    }
+
+    @PostMapping("/admin/category/edit")
+    public String categoryEdit(String id, String name, boolean hidden, @RequestParam("blocked_period") BigDecimal blockedPeriod) {
+        Category category = new Category(id, name, hidden, blockedPeriod);
+        categoryDAO.update(category);
+        return "redirect:/admin/categories";
     }
 }
 
