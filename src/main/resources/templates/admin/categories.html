@@ -21,6 +21,7 @@
             <td th:text="${category.name}"></td>
             <td th:text="${category.hidden}"></td>
             <td th:text="${category.blockedPeriod}"></td>
+            <td><a th:href="@{/admin/category/edit?id=} + ${category.id}">Edytuj</a></td>
         </tr>
         </tbody>
     </table>
