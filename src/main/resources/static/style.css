@@ -82,3 +82,35 @@ input[type=number] {
 .error {
     color: red;
 }
+
+.rtable {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+}
+
+.rtable-cell {
+    box-sizing: border-box;
+    flex-grow: 1;
+    overflow: hidden;
+    list-style: none;
+    border: solid 3px white;
+    width: 20%;
+    padding: 4px;
+}
+
+@media all and (max-width: 600px) {
+    .rtable {
+        display: block;
+        margin: 0 0 2em 0;
+    }
+
+    .rtable-cell {
+        width: 100% !important;
+    }
+}
+
+.header {
+    font-weight: bold;
+}
