@@ -13,14 +13,14 @@
     <div th:each="category : ${productsByCategory}">
         <h3 th:text="${category.key.category.name}"></h3>
         <div class="rtable header">
-            <div class="rtable-cell">produkt</div>
+            <div class="rtable-cell product-name">produkt</div>
             <div class="rtable-cell">cena (ostatnio uzyskana)</div>
             <div class="rtable-cell">zamówiono</div>
             <div class="rtable-cell">brakuje do pełnego zamówienia</div>
             <div class="rtable-cell">twoje zamówienie</div>
         </div>
         <div th:each="item:${category.value}" th:class="${item.status} + ' rtable'">
-            <div class="rtable-cell" th:text="${item.product.name}"></div>
+            <div class="rtable-cell product-name" th:text="${item.product.name}"></div>
             <div class="rtable-cell"
                  th:text="${#numbers.formatDecimal(item.product.price, 1, 2)} +' zł za ' + ${item.product.unit}"></div>
             <div class="rtable-cell" th:text="${item.totalQuantity}+ ' ' + ${item.product.unit}"></div>
