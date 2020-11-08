@@ -27,6 +27,18 @@ nav ul a:hover {
     background-color: #6D0101;
 }
 
+@media screen and (max-width: 600px) {
+    nav ul li {
+        float: none;
+        display: block;
+        text-align: left;
+    }
+
+    nav ul {
+        height: auto;
+    }
+}
+
 h1, h2 {
     text-align: center;
 }
