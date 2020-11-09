@@ -22,6 +22,11 @@ public class CategoryDAO {
                 CategoryDAO::mapRow);
     }
 
+    public List<Category>  allVisible() {
+        return jdbc.query("SELECT * FROM spoldzielnia_kategorie WHERE ukryta = false ORDER BY id",
+                CategoryDAO::mapRow);
+    }
+
     public Category byId(String id) {
         return jdbc.queryForObject("SELECT * FROM spoldzielnia_kategorie WHERE id = ?",
                 CategoryDAO::mapRow, id);

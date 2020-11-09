@@ -10,6 +10,13 @@
 <div th:insert="header :: header">...</div>
 <div id="main">
     <div class="error" th:text="${param.error}"></div>
+    <form>
+    Filtruj: <select name="category" onchange="this.form.submit()">
+        <option value="">Wszystkie</option>
+        <option th:each="category : ${categories}" th:text="${category.name}"
+                        th:value="${category.id}" th:selected="${ param.category != null && param.category[0] == category.id}"></option>
+    </select>
+    </form>
     <div th:each="category : ${productsByCategory}">
         <h3 th:text="${category.key.category.name}"></h3>
         <div class="rtable header">
