@@ -121,3 +121,7 @@ input[type=number] {
 .header {
     font-weight: bold;
 }
+
+select {
+    font-size: 1em;
+}
