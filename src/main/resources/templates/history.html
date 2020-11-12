@@ -2,11 +2,12 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link th:href="@{/style.css}" rel="stylesheet"/>
+    <title>Historia zakupów</title>
+    <div th:replace="head :: head"></div>
 </head>
 <body>
-<div th:insert="header :: header">...</div>
+
+<div th:replace="header :: header" th:remove="tag">...</div>
 <div id="main">
     <div th:each="item:${history}">
         <h3 th:inline="text">[[${item.round.name}]]</h3>
