@@ -39,7 +39,7 @@ public class ProductsController {
         model.addAttribute("productsByCategory", productsByCategoryView);
         model.addAttribute("orderingBlocked", service.isOrderingBlocked());
         model.addAttribute("categories", categoryDAO.allVisible());
-        return "product/list";
+        return "products_list";
     }
 
 }
