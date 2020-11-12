@@ -96,6 +96,10 @@ input[type=number] {
     display: none;
 }
 
+nav .icon {
+    display: none;
+}
+
 @media all and (max-width: 600px) {
     .rtable {
         display: block;
@@ -107,15 +111,10 @@ input[type=number] {
         width: 100% !important;
     }
 
-    nav ul li {
-        float: none;
-        display: block;
-        text-align: left;
-    }
-
     nav ul {
         height: auto;
         width: auto;
+        overflow: hidden;
     }
 
     #main {
@@ -125,11 +124,37 @@ input[type=number] {
     .vertical-header {
         display: block;
         font-weight: bold;
-        background-color: #BBB ;
+        background-color: #BBB;
     }
 
     .header {
         display: none;
+    }
+
+
+    nav ul li:not(:first-child) {
+        display: none;
+    }
+
+    nav ul li.icon {
+        float: right;
+        display: block;
+    }
+
+    nav ul.responsive-menu {
+        position: relative;
+    }
+
+    nav ul.responsive-menu li.icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    nav ul.responsive-menu li {
+        float: none;
+        display: block;
+        text-align: left;
     }
 }
 
