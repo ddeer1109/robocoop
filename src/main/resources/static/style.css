@@ -92,10 +92,15 @@ input[type=number] {
     width: 40%;
 }
 
+.vertical-header {
+    display: none;
+}
+
 @media all and (max-width: 600px) {
     .rtable {
         display: block;
         margin: 0 0 2em 0;
+        border: 2px solid black;
     }
 
     .rtable-cell {
@@ -115,6 +120,16 @@ input[type=number] {
 
     #main {
         width: auto;
+    }
+
+    .vertical-header {
+        display: block;
+        font-weight: bold;
+        background-color: #BBB ;
+    }
+
+    .header {
+        display: none;
     }
 }
 

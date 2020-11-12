@@ -27,12 +27,17 @@
             <div class="rtable-cell">twoje zamówienie</div>
         </div>
         <div th:each="item:${category.value}" th:class="${item.status} + ' rtable'">
+            <div class="rtable-cell vertical-header">produkt</div>
             <div class="rtable-cell product-name" th:text="${item.product.name}"></div>
+            <div class="rtable-cell  vertical-header">cena (ostatnio uzyskana)</div>
             <div class="rtable-cell"
                  th:text="${#numbers.formatDecimal(item.product.price, 1, 2)} +' zł za ' + ${item.product.unit}"></div>
+            <div class="rtable-cell vertical-header">zamówiono</div>
             <div class="rtable-cell" th:text="${item.totalQuantity}+ ' ' + ${item.product.unit}"></div>
+            <div class="rtable-cell vertical-header">brakuje do pełnego zamówienia</div>
             <div class="rtable-cell"
                  th:text="${item.missingToTransactionalQuantity + ' ' + item.product.unit + ' (z ' + item.product.transactionalQuantity + ' ' + item.product.unit + ')' }"></div>
+            <div class="rtable-cell vertical-header">twoje zamówienie</div>
             <div class="rtable-cell">
                 <form th:action="@{/order}" method="post">
                     <input type="hidden" name="product_id" th:value="${item.product.id}">
