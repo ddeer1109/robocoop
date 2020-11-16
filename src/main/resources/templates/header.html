@@ -7,6 +7,7 @@
 
 <body>
 <header th:fragment="header">
+    <p id="currentRound" th:text="'Najbliższe zakupy: ' + ${currentRound.finalDate}"></p>
     <h1>Witaj w Kooperatywie</h1>
     <nav>
         <ul id="topnav">
