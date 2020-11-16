@@ -18,7 +18,7 @@ public class ProductDAO {
     }
 
     public List<Product> findAll() {
-        return jdbcTemplate.query("SELECT * FROM spoldzielnia_produkty", mapProduct());
+        return jdbcTemplate.query("SELECT * FROM spoldzielnia_produkty ORDER BY nazwa", mapProduct());
     }
 
     private RowMapper<Product> mapProduct() {
