@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Historia zakupów</title>
+    <div th:replace="head :: head"></div>
+</head>
+<body>
+
+<div th:replace="admin/header :: header" th:remove="tag">...</div>
+<div id="main">
+    <div th:each="round:${history}">
+        <h3 th:inline="text">[[${round.name}]]</h3>
+    </div>
+</div>
+</body>
+</html>

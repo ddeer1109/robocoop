@@ -68,5 +68,11 @@ public class AdminController {
         categoryDAO.update(category);
         return "redirect:/admin/categories";
     }
+
+    @GetMapping("/admin/history")
+    public String history(Model model) {
+        model.addAttribute("history", roundDAO.all());
+        return "admin/history";
+    }
 }
 
