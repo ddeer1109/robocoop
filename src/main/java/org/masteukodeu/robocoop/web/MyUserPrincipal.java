@@ -19,7 +19,7 @@ public class MyUserPrincipal implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (user.isAdmin()) {
-            return List.of(new SimpleGrantedAuthority("ADMIN"));
+            return List.of(new SimpleGrantedAuthority(Roles.ADMIN));
         }
         return Collections.emptyList();
     }

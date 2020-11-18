@@ -16,7 +16,7 @@
             <li><a th:href="@{/cart}">Zobacz koszyk</a></li>
             <li><a th:href="@{/history}">Moje rachunki</a></li>
             <li><a th:href="@{/total}">Suma zamówień</a></li>
-            <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin}">Panel admina</a></li>
+            <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin}">Admin</a></li>
             <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Wyloguj</a></li>
             <li class="icon">
                 <a href="javascript:void(0);" onclick="toggleMenu()">
