@@ -19,8 +19,11 @@ public class CurrentRoundInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response,
-                           Object handler, ModelAndView modelAndView) throws Exception {
-        modelAndView.addObject("currentRound", roundDAO.current());
+                           Object handler, ModelAndView modelAndView) {
+        // TODO Fix the mapping of the interceptor, so e.g. static files are excluded
+        if (modelAndView != null) {
+            modelAndView.addObject("currentRound", roundDAO.current());
+        }
     }
 
 }
