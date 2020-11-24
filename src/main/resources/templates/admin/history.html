@@ -10,7 +10,8 @@
 <div th:replace="admin/header :: header" th:remove="tag">...</div>
 <div id="main">
     <div th:each="round:${history}">
-        <h3 th:inline="text">[[${round.name}]]</h3>
+        <h3 th:inline="text">[[${round.finalDate}]] - [[${round.name}]]</h3>
+        <a th:href="@{/admin/round?id=} + ${round.id}">Szczegóły</a>
     </div>
 </div>
 </body>

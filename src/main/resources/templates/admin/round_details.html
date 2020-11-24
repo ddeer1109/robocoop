@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Szczegóły tury</title>
+    <div th:replace="head :: head"></div>
+</head>
+<body>
+
+<div th:replace="admin/header :: header" th:remove="tag">...</div>
+<div id="main">
+    <h3 th:inline="text">[[${round.finalDate}]] - [[${round.name}]]</h3>
+</div>
+</body>
+</html>

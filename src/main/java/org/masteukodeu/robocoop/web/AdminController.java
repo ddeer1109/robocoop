@@ -74,5 +74,11 @@ public class AdminController {
         model.addAttribute("history", roundDAO.all());
         return "admin/history";
     }
+
+    @GetMapping("/admin/round")
+    public String roundDetails(Model model, @RequestParam("id") String roundId) {
+        model.addAttribute("round", roundDAO.byId(roundId));
+        return "admin/round_details";
+    }
 }
 
