@@ -2,6 +2,7 @@ package org.masteukodeu.robocoop.web;
 
 import org.masteukodeu.robocoop.db.CategoryDAO;
 import org.masteukodeu.robocoop.db.ConfigDAO;
+import org.masteukodeu.robocoop.db.OrderDAO;
 import org.masteukodeu.robocoop.db.RoundDAO;
 import org.masteukodeu.robocoop.model.Category;
 import org.masteukodeu.robocoop.model.Round;
@@ -20,11 +21,13 @@ public class AdminController {
     private final RoundDAO roundDAO;
     private final ConfigDAO configDAO;
     private final CategoryDAO categoryDAO;
+    private final OrderDAO orderDAO;
 
-    public AdminController(RoundDAO roundDAO, ConfigDAO configDAO, CategoryDAO categoryDAO) {
+    public AdminController(RoundDAO roundDAO, ConfigDAO configDAO, CategoryDAO categoryDAO, OrderDAO orderDAO) {
         this.roundDAO = roundDAO;
         this.configDAO = configDAO;
         this.categoryDAO = categoryDAO;
+        this.orderDAO = orderDAO;
     }
 
     @GetMapping("/admin/new_round")
@@ -78,6 +81,7 @@ public class AdminController {
     @GetMapping("/admin/round")
     public String roundDetails(Model model, @RequestParam("id") String roundId) {
         model.addAttribute("round", roundDAO.byId(roundId));
+        model.addAttribute("orders", orderDAO.byRound(roundId));
         return "admin/round_details";
     }
 }
