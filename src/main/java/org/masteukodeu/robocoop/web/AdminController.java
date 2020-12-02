@@ -1,10 +1,7 @@
 package org.masteukodeu.robocoop.web;
 
 import org.masteukodeu.robocoop.db.*;
-import org.masteukodeu.robocoop.model.Cart;
-import org.masteukodeu.robocoop.model.Category;
-import org.masteukodeu.robocoop.model.Order;
-import org.masteukodeu.robocoop.model.Round;
+import org.masteukodeu.robocoop.model.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 @Controller
 public class AdminController {
@@ -24,13 +23,15 @@ public class AdminController {
     private final CategoryDAO categoryDAO;
     private final OrderDAO orderDAO;
     private final ProductDAO productDAO;
+    private final UserDAO userDAO;
 
-    public AdminController(RoundDAO roundDAO, ConfigDAO configDAO, CategoryDAO categoryDAO, OrderDAO orderDAO, ProductDAO productDAO) {
+    public AdminController(RoundDAO roundDAO, ConfigDAO configDAO, CategoryDAO categoryDAO, OrderDAO orderDAO, ProductDAO productDAO, UserDAO userDAO) {
         this.roundDAO = roundDAO;
         this.configDAO = configDAO;
         this.categoryDAO = categoryDAO;
         this.orderDAO = orderDAO;
         this.productDAO = productDAO;
+        this.userDAO = userDAO;
     }
 
     @GetMapping("/admin/new_round")
@@ -85,8 +86,17 @@ public class AdminController {
     public String roundDetails(Model model, @RequestParam("id") String roundId) {
         model.addAttribute("round", roundDAO.byId(roundId));
         List<Order> orders = orderDAO.byRound(roundId);
-        List<Cart.Item> cartItems = orders.stream().map(o -> new Cart.Item(o.getId(), productDAO.byId(o.getProductId()), o.getQuantity())).collect(Collectors.toList());
-        model.addAttribute("orders", cartItems);
+
+        Map<User, Cart> cartsByUser = new HashMap<>();
+
+        for (Order order : orders) {
+            User user = userDAO.byId(order.getUserId());
+            Cart cart = cartsByUser.getOrDefault(user, new Cart(new ArrayList<>()));
+            cart.getItems().add(new Cart.Item(order.getId(), productDAO.byId(order.getProductId()), order.getQuantity()));
+            cartsByUser.put(user, cart);
+        }
+
+        model.addAttribute("cartsByUser", cartsByUser);
         return "admin/round_details";
     }
 }

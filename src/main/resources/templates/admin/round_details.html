@@ -11,8 +11,28 @@
 <div id="main">
     <h3 th:inline="text">[[${round.finalDate}]] - [[${round.name}]]</h3>
     <ul>
-        <li th:each="order:${orders}"
-            th:text="'product: '  + ${order.product.name} + ' quantity: ' + ${order.quantity}"></li>
+        <li th:each="cartByUser:${cartsByUser}">
+            <h4 th:text="'Zamówienie dla ' + ${cartByUser.key.name}"></h4>
+            <table>
+                <tr>
+                    <th>Produkt</th>
+                    <th>Cena</th>
+                    <th>Ilość</th>
+                    <th>Wartość</th>
+                </tr>
+                <tr th:each="item:${cartByUser.value.items}">
+                    <td th:text="${item.product.name}"></td>
+                    <td th:text="${#numbers.formatDecimal(item.product.price, 1, 2)}"></td>
+                    <td th:text="${#numbers.formatDecimal(item.quantity, 1, 2)}"></td>
+                    <td th:text="${#numbers.formatDecimal(item.amount, 1, 2)}"></td>
+                </tr>
+            </table>
+            <p><strong>Razem: <span th:text="${#numbers.formatDecimal(cartByUser.value.total, 1, 2)}">3.75</span> zł +
+                10% na fundusz
+                gromadzki <span th:text="${#numbers.formatDecimal(cartByUser.value.communityFund, 1, 2)}">0.37</span> zł
+                = <span th:text="${#numbers.formatDecimal(cartByUser.value.TotalWithCommunityFund, 1, 2)}">4,12</span>
+                zł </strong></p>
+        </li>
     </ul>
 </div>
 </body>

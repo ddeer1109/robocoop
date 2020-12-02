@@ -37,4 +37,8 @@ public class UserDAO {
     public User byUsername(String username) {
         return jdbcTemplate.queryForObject("SELECT * FROM spoldzielnia_userzy WHERE email = ?", this::mapUser, username);
     }
+
+    public User byId(String id) {
+        return jdbcTemplate.queryForObject("SELECT * FROM spoldzielnia_userzy WHERE id = ?", this::mapUser, id);
+    }
 }
