@@ -1,10 +1,9 @@
 package org.masteukodeu.robocoop.web;
 
-import org.masteukodeu.robocoop.db.CategoryDAO;
-import org.masteukodeu.robocoop.db.ConfigDAO;
-import org.masteukodeu.robocoop.db.OrderDAO;
-import org.masteukodeu.robocoop.db.RoundDAO;
+import org.masteukodeu.robocoop.db.*;
+import org.masteukodeu.robocoop.model.Cart;
 import org.masteukodeu.robocoop.model.Category;
+import org.masteukodeu.robocoop.model.Order;
 import org.masteukodeu.robocoop.model.Round;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class AdminController {
@@ -22,12 +23,14 @@ public class AdminController {
     private final ConfigDAO configDAO;
     private final CategoryDAO categoryDAO;
     private final OrderDAO orderDAO;
+    private final ProductDAO productDAO;
 
-    public AdminController(RoundDAO roundDAO, ConfigDAO configDAO, CategoryDAO categoryDAO, OrderDAO orderDAO) {
+    public AdminController(RoundDAO roundDAO, ConfigDAO configDAO, CategoryDAO categoryDAO, OrderDAO orderDAO, ProductDAO productDAO) {
         this.roundDAO = roundDAO;
         this.configDAO = configDAO;
         this.categoryDAO = categoryDAO;
         this.orderDAO = orderDAO;
+        this.productDAO = productDAO;
     }
 
     @GetMapping("/admin/new_round")
@@ -81,7 +84,9 @@ public class AdminController {
     @GetMapping("/admin/round")
     public String roundDetails(Model model, @RequestParam("id") String roundId) {
         model.addAttribute("round", roundDAO.byId(roundId));
-        model.addAttribute("orders", orderDAO.byRound(roundId));
+        List<Order> orders = orderDAO.byRound(roundId);
+        List<Cart.Item> cartItems = orders.stream().map(o -> new Cart.Item(o.getId(), productDAO.byId(o.getProductId()), o.getQuantity())).collect(Collectors.toList());
+        model.addAttribute("orders", cartItems);
         return "admin/round_details";
     }
 }
