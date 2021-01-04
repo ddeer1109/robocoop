@@ -1,12 +1,12 @@
 package org.masteukodeu.robocoop.web;
 
+import org.masteukodeu.robocoop.db.OrderDAO;
 import org.masteukodeu.robocoop.db.RoundDAO;
-import org.masteukodeu.robocoop.model.Cart;
-import org.masteukodeu.robocoop.model.CoopService;
-import org.masteukodeu.robocoop.model.Round;
+import org.masteukodeu.robocoop.model.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -17,10 +17,12 @@ public class CoopController {
 
     private final RoundDAO roundDAO;
     private final CoopService service;
+    private final OrderDAO orderDAO;
 
-    public CoopController(RoundDAO roundDAO, CoopService service) {
+    public CoopController(RoundDAO roundDAO, CoopService service, OrderDAO orderDAO) {
         this.roundDAO = roundDAO;
         this.service = service;
+        this.orderDAO = orderDAO;
     }
 
     @GetMapping("/info")
@@ -35,6 +37,13 @@ public class CoopController {
         List<HistoricalCart> history = rounds.stream().map(r -> new HistoricalCart(r, service.getCartForUserAndRound(username, r.getId()))).collect(Collectors.toList());
         model.addAttribute("history", history);
         return "history";
+    }
+
+    @GetMapping("/round")
+    public String roundDetails2(Model model, @RequestParam("id") String roundId) {
+        model.addAttribute("round", roundDAO.byId(roundId));
+        model.addAttribute("orders", orderDAO.byRound(roundId));
+        return "round_details";
     }
 
     @GetMapping("/total")

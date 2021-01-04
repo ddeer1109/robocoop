@@ -10,10 +10,11 @@
 <div th:replace="header :: header" th:remove="tag">...</div>
 <div id="main">
     <div th:each="item:${history}">
-        <h3 th:inline="text">[[${item.round.name}]]</h3>
+        <h3 th:inline="text">[[${item.round.finalDate}]] - [[${item.round.name}]]</h3>
         <p th:inline="text">Razem: [[${#numbers.formatDecimal(item.cart.total, 1, 2)}]] zł
             + [[${#numbers.formatDecimal(item.cart.communityFund, 1, 2)}]] na fundusz gromadzki
             = [[${#numbers.formatDecimal(item.cart.total + item.cart.communityFund, 1, 2)}]] zł</p>
+        <a th:href="@{/round?id=} + ${item.round.id}">Szczegóły</a>
     </div>
 </div>
 </body>
