@@ -40,7 +40,7 @@ public class CoopController {
     }
 
     @GetMapping("/round")
-    public String roundDetails2(Model model, @RequestParam("id") String roundId) {
+    public String roundDetails(Model model, @RequestParam("id") String roundId) {
         model.addAttribute("round", roundDAO.byId(roundId));
         model.addAttribute("orders", orderDAO.byRound(roundId));
         return "round_details";

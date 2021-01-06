@@ -52,6 +52,6 @@ class CartTest {
 
         BigDecimal result = cart.getTotalWithCommunityFund();
 
-        assertThat(result).isEqualTo(new BigDecimal(1500));
+        assertThat(result).isEqualTo(new BigDecimal(1650));
     }
 }
