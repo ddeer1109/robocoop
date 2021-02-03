@@ -43,7 +43,7 @@ public class CoopController {
     public String roundDetails(Model model, @RequestParam("id") String roundId, HttpServletRequest request) {
         String username = request.getRemoteUser();
         model.addAttribute("round", roundDAO.byId(roundId));
-        model.addAttribute("orders", orderDAO.byRound(roundId));
+        model.addAttribute("orders", orderDAO.byUserAndRound(username, roundId));
         return "round_details";
     }
 
