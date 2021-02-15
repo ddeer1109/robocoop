@@ -110,5 +110,12 @@ public class AdminController {
         model.addAttribute("orders", service.getOrderedProductsByCategoryForRound(roundId));
         return "admin/deliveries";
     }
+
+    @GetMapping("/total")
+    public String total(Model model, @RequestParam("round_id") String roundId) {
+        model.addAttribute("round", roundDAO.byId(roundId));
+        model.addAttribute("orders", service.getOrderedProductsByCategoryForRound(roundId));
+        return "admin/total";
+    }
 }
 

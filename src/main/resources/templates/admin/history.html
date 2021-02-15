@@ -11,8 +11,9 @@
 <div id="main">
     <div th:each="round:${history}">
         <h3 th:inline="text">[[${round.finalDate}]] - [[${round.name}]]</h3>
-        <a th:href="@{/admin/round?id=} + ${round.id}">Użytkownicy</a>
-        <a th:href="@{/admin/deliveries?round_id=} + ${round.id}">Kategorie</a>
+        <a th:href="@{/admin/round?id=} + ${round.id}">Per użytkownik</a>
+        <a th:href="@{/admin/total?round_id=} + ${round.id}">Łącznie</a>
+        <a th:href="@{/admin/deliveries?round_id=} + ${round.id}">Dostawy</a>
     </div>
 </div>
 </body>
