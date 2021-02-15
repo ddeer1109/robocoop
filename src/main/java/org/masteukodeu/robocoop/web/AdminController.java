@@ -26,14 +26,16 @@ public class AdminController {
     private final OrderDAO orderDAO;
     private final ProductDAO productDAO;
     private final UserDAO userDAO;
+    private final CoopService service;
 
-    public AdminController(RoundDAO roundDAO, ConfigDAO configDAO, CategoryDAO categoryDAO, OrderDAO orderDAO, ProductDAO productDAO, UserDAO userDAO) {
+    public AdminController(RoundDAO roundDAO, ConfigDAO configDAO, CategoryDAO categoryDAO, OrderDAO orderDAO, ProductDAO productDAO, UserDAO userDAO, CoopService service) {
         this.roundDAO = roundDAO;
         this.configDAO = configDAO;
         this.categoryDAO = categoryDAO;
         this.orderDAO = orderDAO;
         this.productDAO = productDAO;
         this.userDAO = userDAO;
+        this.service = service;
     }
 
     @GetMapping("/new_round")
@@ -100,6 +102,13 @@ public class AdminController {
 
         model.addAttribute("cartsByUser", cartsByUser);
         return "admin/round_details";
+    }
+
+    @GetMapping("/deliveries")
+    public String deliveries(Model model, @RequestParam("round_id") String roundId) {
+        model.addAttribute("round", roundDAO.byId(roundId));
+        model.addAttribute("orders", service.getOrderedProductsByCategoryForRound(roundId));
+        return "admin/deliveries";
     }
 }
 

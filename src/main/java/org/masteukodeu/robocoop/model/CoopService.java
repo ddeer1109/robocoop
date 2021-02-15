@@ -36,7 +36,12 @@ public class CoopService {
     }
 
     public Map<Category, List<ProductDetails>> getProductsByCategory() {
-        List<Order> orders = orderDAO.byRound(roundDAO.current().getId());
+        String roundId = roundDAO.current().getId();
+        return getOrderedProductsByCategoryForRound(roundId);
+    }
+
+    public Map<Category, List<ProductDetails>> getOrderedProductsByCategoryForRound(String roundId) {
+        List<Order> orders = orderDAO.byRound(roundId);
         List<Product> all = productDAO.findAll();
         List<Category> categories = categoryDAO.all();
         Map<String, List<Order>> ordersByProduct = new HashMap<>();

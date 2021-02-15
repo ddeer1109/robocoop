@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Suma zamówień w obecnej turze</title>
+    <div th:replace="head :: head"></div>
+</head>
+<body>
+
+<div th:replace="admin/header :: header" th:remove="tag">...</div>
+<div id="main">
+    <h2>Suma aktualnej tury zakupów (<span th:text="${round.name}"></span>)</h2>
+    <div th:each="category : ${orders}">
+        <p th:if="${item.totalQuantity > 0}" th:each="item:${category.value}"
+           th:text="${item.product.name} + ' - ' + ${item.totalQuantity} + ' ' + ${item.product.unit}"></p>
+    </div>
+</div>
+</body>
+</html>
