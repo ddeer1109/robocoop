@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
     private final RoundDAO roundDAO;
@@ -34,55 +36,55 @@ public class AdminController {
         this.userDAO = userDAO;
     }
 
-    @GetMapping("/admin/new_round")
+    @GetMapping("/new_round")
     public String newRoundForm() {
         return "admin/new_round";
     }
 
-    @PostMapping("/admin/new_round")
+    @PostMapping("/new_round")
     public String createNewRound(@RequestParam("round_name") String roundName, @RequestParam("final_date") String finalDate) {
         String roundId = roundDAO.add(new Round(null, roundName, LocalDate.parse(finalDate)));
         configDAO.setCurrentRound(roundId);
         return "redirect:/admin/new_round_created";
     }
 
-    @GetMapping("/admin/new_round_created")
+    @GetMapping("/new_round_created")
     public String newRoundCreated() {
         return "admin/new_round_created";
     }
 
 
-    @GetMapping("/admin")
+    @GetMapping("/")
     public String admin() {
         return "admin/admin";
     }
 
-    @GetMapping("/admin/categories")
+    @GetMapping("/categories")
     public String categories(Model model) {
         model.addAttribute("categories", categoryDAO.all());
         return "admin/categories";
     }
 
-    @GetMapping("/admin/category/edit")
+    @GetMapping("/category/edit")
     public String categoryEditForm(Model model, String id) {
         model.addAttribute("category", categoryDAO.byId(id));
         return "admin/category_edit";
     }
 
-    @PostMapping("/admin/category/edit")
+    @PostMapping("/category/edit")
     public String categoryEdit(String id, String name, boolean hidden, @RequestParam("blocked_period") BigDecimal blockedPeriod) {
         Category category = new Category(id, name, hidden, blockedPeriod);
         categoryDAO.update(category);
         return "redirect:/admin/categories";
     }
 
-    @GetMapping("/admin/history")
+    @GetMapping("/history")
     public String history(Model model) {
         model.addAttribute("history", roundDAO.all());
         return "admin/history";
     }
 
-    @GetMapping("/admin/round")
+    @GetMapping("/round")
     public String roundDetails(Model model, @RequestParam("id") String roundId) {
         model.addAttribute("round", roundDAO.byId(roundId));
         List<Order> orders = orderDAO.byRound(roundId);
