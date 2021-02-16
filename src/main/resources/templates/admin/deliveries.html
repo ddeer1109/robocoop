@@ -11,8 +11,16 @@
 <div id="main">
     <h2>Suma aktualnej tury zakupów (<span th:text="${round.name}"></span>)</h2>
     <div th:each="category : ${orders}">
-        <p th:if="${item.totalQuantity > 0}" th:each="item:${category.value}"
-           th:text="${item.product.name} + ' - ' + ${item.totalQuantity} + ' ' + ${item.product.unit}"></p>
+        <div th:if="${item.totalQuantity > 0}" th:each="item:${category.value}">
+            <span th:text="${item.product.name} + ' - ' + ${item.totalQuantity} + ' ' + ${item.product.unit}"/>
+            <form th:action="@{/admin/define_price}"  method="post">
+                <input type="hidden" name="round_id" th:value="${round.id}">
+                <input type="hidden" name="product_id" th:value="${item.product.id}">
+                Cena: <input name="price" />
+                Ilość: <input name="amount" />
+                <input type="submit" value="Zapisz"/>
+            </form>
+        </div>
     </div>
 </div>
 </body>

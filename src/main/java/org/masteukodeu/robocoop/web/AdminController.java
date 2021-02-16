@@ -26,15 +26,17 @@ public class AdminController {
     private final OrderDAO orderDAO;
     private final ProductDAO productDAO;
     private final UserDAO userDAO;
+    private final DeliveryDAO deliveryDAO;
     private final CoopService service;
 
-    public AdminController(RoundDAO roundDAO, ConfigDAO configDAO, CategoryDAO categoryDAO, OrderDAO orderDAO, ProductDAO productDAO, UserDAO userDAO, CoopService service) {
+    public AdminController(RoundDAO roundDAO, ConfigDAO configDAO, CategoryDAO categoryDAO, OrderDAO orderDAO, ProductDAO productDAO, UserDAO userDAO, DeliveryDAO deliveryDAO, CoopService service) {
         this.roundDAO = roundDAO;
         this.configDAO = configDAO;
         this.categoryDAO = categoryDAO;
         this.orderDAO = orderDAO;
         this.productDAO = productDAO;
         this.userDAO = userDAO;
+        this.deliveryDAO = deliveryDAO;
         this.service = service;
     }
 
@@ -116,6 +118,16 @@ public class AdminController {
         model.addAttribute("round", roundDAO.byId(roundId));
         model.addAttribute("orders", service.getOrderedProductsByCategoryForRound(roundId));
         return "admin/total";
+    }
+
+    @PostMapping("/define_price")
+    public String definePrice(@RequestParam("round_id") String roundId, @RequestParam("product_id") String productId,  BigDecimal price, BigDecimal amount) {
+        if (deliveryDAO.exists(roundId, productId)) {
+            deliveryDAO.update(roundId, productId, price, amount);
+        } else {
+            deliveryDAO.add(roundId, productId, price, amount);
+        }
+        return "redirect:/admin/history";
     }
 }
 
