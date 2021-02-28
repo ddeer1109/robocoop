@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class AdminController {
@@ -84,7 +81,8 @@ public class AdminController {
 
     @GetMapping("/admin/round")
     public String roundDetails(Model model, @RequestParam("id") String roundId) {
-        model.addAttribute("round", roundDAO.byId(roundId));
+        Round round = roundDAO.byId(roundId);
+        model.addAttribute("round", round);
         List<Order> orders = orderDAO.byRound(roundId);
 
         Map<User, Cart> cartsByUser = new HashMap<>();
