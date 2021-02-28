@@ -1,9 +1,13 @@
 package org.masteukodeu.robocoop.db;
 
+import org.masteukodeu.robocoop.model.Delivery;
+import org.masteukodeu.robocoop.model.Order;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Repository
 public class DeliveryDAO {
@@ -27,5 +31,19 @@ public class DeliveryDAO {
 
     public boolean exists(String roundId, String productId) {
         return !jdbcTemplate.queryForList("SELECT * FROM dostawy WHERE id_tury = ? AND id_produktu = ?", roundId, productId).isEmpty();
+    }
+
+    public List<Delivery> byRound(String roundId) {
+        return jdbcTemplate.query("SELECT * FROM dostawy WHERE id_tury = ?",
+                getRowMapper(), roundId);
+    }
+
+    private static RowMapper<Delivery> getRowMapper() {
+        return (rs, rowNum) -> new Delivery(
+                rs.getString("id_tury"),
+                rs.getString("id_produktu"),
+                rs.getBigDecimal("cena"),
+                rs.getBigDecimal("ilosc")
+        );
     }
 }

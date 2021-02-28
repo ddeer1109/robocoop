@@ -2,13 +2,15 @@ package org.masteukodeu.robocoop.model;
 
 import java.math.BigDecimal;
 
-public class ProductDetails {
+public class    ProductDetails {
     private final Product product;
     private final BigDecimal totalQuantity;
+    private final Delivery delivery;
 
-    public ProductDetails(Product product, BigDecimal orderedQuantity) {
+    public ProductDetails(Product product, BigDecimal orderedQuantity, Delivery delivery) {
         this.product = product;
         this.totalQuantity = orderedQuantity;
+        this.delivery = delivery;
     }
 
     public Product getProduct() {
@@ -17,6 +19,10 @@ public class ProductDetails {
 
     public BigDecimal getTotalQuantity() {
         return totalQuantity;
+    }
+
+    public Delivery getDelivery() {
+        return delivery;
     }
 
     public BigDecimal getMissingToTransactionalQuantity() {

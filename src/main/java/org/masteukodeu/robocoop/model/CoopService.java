@@ -18,14 +18,16 @@ public class CoopService {
     private final RoundDAO roundDAO;
     private final Clock clock;
     private final CategoryDAO categoryDAO;
+    private final DeliveryDAO deliveryDAO;
 
-    public CoopService(ProductDAO productDAO, OrderDAO orderDAO, UserDAO userDAO, RoundDAO roundDAO, Clock clock, CategoryDAO categoryDAO) {
+    public CoopService(ProductDAO productDAO, OrderDAO orderDAO, UserDAO userDAO, RoundDAO roundDAO, Clock clock, CategoryDAO categoryDAO, DeliveryDAO deliveryDAO) {
         this.productDAO = productDAO;
         this.orderDAO = orderDAO;
         this.userDAO = userDAO;
         this.roundDAO = roundDAO;
         this.clock = clock;
         this.categoryDAO = categoryDAO;
+        this.deliveryDAO = deliveryDAO;
     }
 
     public Cart getCartForUserAndRound(String username, String roundId) {
@@ -44,6 +46,7 @@ public class CoopService {
         List<Order> orders = orderDAO.byRound(roundId);
         List<Product> all = productDAO.findAll();
         List<Category> categories = categoryDAO.all();
+        Map<String, Delivery> deliveries = deliveryDAO.byRound(roundId).stream().collect(Collectors.toMap(d -> d.getProductId(), d -> d));
         Map<String, List<Order>> ordersByProduct = new HashMap<>();
         Map<String, Category> categoryMap = new HashMap<>();
         Map<Category, List<ProductDetails>> productsByCategory = new LinkedHashMap<>();
@@ -61,7 +64,7 @@ public class CoopService {
             Category category = categoryMap.get(product.getCategoryId());
             List<ProductDetails> products = productsByCategory.get(category);
             if (products != null) {
-                products.add(new ProductDetails(product, getTotalQuantity(ordersByProduct.get(product.getId()))));
+                products.add(new ProductDetails(product, getTotalQuantity(ordersByProduct.get(product.getId())), deliveries.get(product.getId())));
             }
         }
         return productsByCategory;

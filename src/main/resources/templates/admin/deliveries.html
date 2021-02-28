@@ -16,8 +16,8 @@
             <form th:action="@{/admin/define_price}"  method="post">
                 <input type="hidden" name="round_id" th:value="${round.id}">
                 <input type="hidden" name="product_id" th:value="${item.product.id}">
-                Cena: <input name="price" />
-                Ilość: <input name="amount" />
+                    Cena: <input name="price" th:value="*{item.delivery} ?  *{item.delivery.price}: ''"/>
+                Ilość: <input name="amount" th:value="*{item.delivery} ? *{item.delivery.amount} : ''"/>
                 <input type="submit" value="Zapisz"/>
             </form>
         </div>
