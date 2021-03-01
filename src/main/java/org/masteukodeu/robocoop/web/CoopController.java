@@ -52,7 +52,6 @@ public class CoopController {
         User user = userDAO.byUsername(username);
         model.addAttribute("round", roundDAO.byId(roundId));
         List<Order> orders = orderDAO.byUserAndRound(user.getId(), roundId);
-//        orders.stream().map(o -> new Cart.Item(o.getId(), productDAO.byId(o.getProductId()), o.getQuantity()));
         model.addAttribute("orders", orders);
         Cart cart = new Cart(new ArrayList<>());
 

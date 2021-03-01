@@ -81,8 +81,7 @@ public class AdminController {
 
     @GetMapping("/admin/round")
     public String roundDetails(Model model, @RequestParam("id") String roundId) {
-        Round round = roundDAO.byId(roundId);
-        model.addAttribute("round", round);
+        model.addAttribute("round", roundDAO.byId(roundId));
         List<Order> orders = orderDAO.byRound(roundId);
 
         Map<User, Cart> cartsByUser = new HashMap<>();
