@@ -4,7 +4,11 @@ import org.masteukodeu.robocoop.db.OrderDAO;
 import org.masteukodeu.robocoop.db.ProductDAO;
 import org.masteukodeu.robocoop.db.RoundDAO;
 import org.masteukodeu.robocoop.db.UserDAO;
-import org.masteukodeu.robocoop.model.*;
+import org.masteukodeu.robocoop.model.Cart;
+import org.masteukodeu.robocoop.model.CoopService;
+import org.masteukodeu.robocoop.model.Order;
+import org.masteukodeu.robocoop.model.Round;
+import org.masteukodeu.robocoop.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,9 +56,8 @@ public class CoopController {
         User user = userDAO.byUsername(username);
         model.addAttribute("round", roundDAO.byId(roundId));
         List<Order> orders = orderDAO.byUserAndRound(user.getId(), roundId);
-        model.addAttribute("orders", orders);
-        Cart cart = new Cart(new ArrayList<>());
 
+        Cart cart = new Cart(new ArrayList<>());
         for (Order order : orders) {
             cart.getItems().add(new Cart.Item(order.getId(), productDAO.byId(order.getProductId()), order.getQuantity()));
         }
