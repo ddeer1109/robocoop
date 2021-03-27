@@ -1,6 +1,7 @@
-package org.masteukodeu.robocoop.web;
+package org.masteukodeu.robocoop.web.security;
 
 import org.masteukodeu.robocoop.model.User;
+import org.masteukodeu.robocoop.web.security.Roles;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

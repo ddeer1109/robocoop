@@ -1,7 +1,8 @@
-package org.masteukodeu.robocoop.web;
+package org.masteukodeu.robocoop.web.security;
 
 import org.masteukodeu.robocoop.db.UserDAO;
 import org.masteukodeu.robocoop.model.User;
+import org.masteukodeu.robocoop.web.security.MyUserPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

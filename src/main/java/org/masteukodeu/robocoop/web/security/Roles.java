@@ -1,4 +1,4 @@
-package org.masteukodeu.robocoop.web;
+package org.masteukodeu.robocoop.web.security;
 
 public class Roles {
 

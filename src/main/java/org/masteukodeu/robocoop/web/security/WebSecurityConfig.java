@@ -1,8 +1,8 @@
-package org.masteukodeu.robocoop.web;
+package org.masteukodeu.robocoop.web.security;
 
+import org.masteukodeu.robocoop.web.security.Roles;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Role;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
