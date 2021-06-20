@@ -1,7 +1,9 @@
 package org.masteukodeu.robocoop;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.masteukodeu.robocoop.db.RoundDAO;
+import org.masteukodeu.robocoop.model.Clock;
 import org.masteukodeu.robocoop.model.CoopService;
 import org.masteukodeu.robocoop.model.Round;
 
@@ -11,9 +13,12 @@ public class CoopServiceTest {
 
 
     @Test
-    public void CoopServiceTest(){
+    public void orderShouldBeBlocked(){
+
+
         Round testRound = new Round("1", "test", LocalDate.now());
         RoundDAO newRound = new RoundDAO();
+        Clock clock = new Clock();
 
 
 
@@ -22,11 +27,12 @@ public class CoopServiceTest {
                 null,
                 null,
                 newRound,
-                null,
+                clock,
                 null,
                 null
         );
-        sut.isOrderingBlocked();
-        assert true;
+
+        Assertions.assertTrue(sut.isOrderingBlocked(), "order is not blocked");
+
     }
 }
