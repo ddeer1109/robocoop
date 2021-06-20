@@ -85,7 +85,8 @@ public class CoopService {
         Round currentRound = roundDAO.current();
         LocalDate finalDate = currentRound.getFinalDate();
         LocalDateTime lastOrderTime = getLastOrderTime(finalDate);
-        return !clock.now().isBefore(lastOrderTime);
+        LocalDateTime clockNow = clock.now();
+        return !clockNow.isBefore(lastOrderTime);
     }
 
     private LocalDateTime getLastOrderTime(LocalDate finalDate) {

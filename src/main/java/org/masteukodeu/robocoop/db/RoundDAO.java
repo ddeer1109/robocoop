@@ -21,10 +21,16 @@ public class RoundDAO {
     public RoundDAO(JdbcTemplate jdbc) {
         this.jdbc = jdbc;
     }
-
+    public RoundDAO(){ this.jdbc = null; }
     public Round current() {
-        String currentRoundId = jdbc.queryForObject("SELECT aktualna_tura FROM spoldzielnia_config", String.class);
-        return byId(currentRoundId);
+        if(jdbc != null) {
+            String currentRoundId = jdbc.queryForObject("SELECT aktualna_tura FROM spoldzielnia_config", String.class);
+            return byId(currentRoundId);
+        }
+        else{
+            return new Round("1", "test", LocalDate.now());
+
+        }
     }
 
     public Round byId(String id) {
