@@ -2,7 +2,7 @@ package org.masteukodeu.robocoop.web;
 
 import org.masteukodeu.robocoop.db.OrderDAO;
 import org.masteukodeu.robocoop.db.ProductDAO;
-import org.masteukodeu.robocoop.db.RoundDAO;
+import org.masteukodeu.robocoop.db.JdbcRoundDAO;
 import org.masteukodeu.robocoop.db.UserDAO;
 import org.masteukodeu.robocoop.model.*;
 import org.springframework.stereotype.Controller;
@@ -21,11 +21,11 @@ public class CartController {
 
     private final OrderDAO orderDAO;
     private final UserDAO userDAO;
-    private final RoundDAO roundDAO;
+    private final JdbcRoundDAO roundDAO;
     private final CoopService coopService;
     private final ProductDAO productDAO;
 
-    public CartController(OrderDAO orderDAO, UserDAO userDAO, RoundDAO roundDAO, CoopService coopService, ProductDAO productDAO) {
+    public CartController(OrderDAO orderDAO, UserDAO userDAO, JdbcRoundDAO roundDAO, CoopService coopService, ProductDAO productDAO) {
         this.orderDAO = orderDAO;
         this.userDAO = userDAO;
         this.roundDAO = roundDAO;

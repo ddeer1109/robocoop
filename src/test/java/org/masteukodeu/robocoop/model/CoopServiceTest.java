@@ -6,7 +6,7 @@ import org.masteukodeu.robocoop.db.CategoryDAO;
 import org.masteukodeu.robocoop.db.DeliveryDAO;
 import org.masteukodeu.robocoop.db.OrderDAO;
 import org.masteukodeu.robocoop.db.ProductDAO;
-import org.masteukodeu.robocoop.db.RoundDAO;
+import org.masteukodeu.robocoop.db.JdbcRoundDAO;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -24,7 +24,7 @@ public class CoopServiceTest {
     private final ProductDAO productDAO = mock(ProductDAO.class);
     private final OrderDAO orderDAO = mock(OrderDAO.class);
     private final CategoryDAO categoryDAO = mock(CategoryDAO.class);
-    private final RoundDAO roundDAO = mock(RoundDAO.class);
+    private final JdbcRoundDAO roundDAO = mock(JdbcRoundDAO.class);
     private final DeliveryDAO deliveryDAO = mock(DeliveryDAO.class);
 
     private final CoopService coopService = new CoopService(productDAO, orderDAO, null, roundDAO, null, categoryDAO, deliveryDAO);

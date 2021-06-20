@@ -20,7 +20,7 @@ import java.util.Map;
 @RequestMapping("/admin")
 public class AdminController {
 
-    private final RoundDAO roundDAO;
+    private final JdbcRoundDAO roundDAO;
     private final ConfigDAO configDAO;
     private final CategoryDAO categoryDAO;
     private final OrderDAO orderDAO;
@@ -29,7 +29,7 @@ public class AdminController {
     private final DeliveryDAO deliveryDAO;
     private final CoopService service;
 
-    public AdminController(RoundDAO roundDAO, ConfigDAO configDAO, CategoryDAO categoryDAO, OrderDAO orderDAO, ProductDAO productDAO, UserDAO userDAO, DeliveryDAO deliveryDAO, CoopService service) {
+    public AdminController(JdbcRoundDAO roundDAO, ConfigDAO configDAO, CategoryDAO categoryDAO, OrderDAO orderDAO, ProductDAO productDAO, UserDAO userDAO, DeliveryDAO deliveryDAO, CoopService service) {
         this.roundDAO = roundDAO;
         this.configDAO = configDAO;
         this.categoryDAO = categoryDAO;

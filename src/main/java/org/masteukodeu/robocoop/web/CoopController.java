@@ -2,7 +2,7 @@ package org.masteukodeu.robocoop.web;
 
 import org.masteukodeu.robocoop.db.OrderDAO;
 import org.masteukodeu.robocoop.db.ProductDAO;
-import org.masteukodeu.robocoop.db.RoundDAO;
+import org.masteukodeu.robocoop.db.JdbcRoundDAO;
 import org.masteukodeu.robocoop.db.UserDAO;
 import org.masteukodeu.robocoop.model.Cart;
 import org.masteukodeu.robocoop.model.CoopService;
@@ -22,13 +22,13 @@ import java.util.stream.Collectors;
 @Controller
 public class CoopController {
 
-    private final RoundDAO roundDAO;
+    private final JdbcRoundDAO roundDAO;
     private final CoopService service;
     private final OrderDAO orderDAO;
     private final UserDAO userDAO;
     private final ProductDAO productDAO;
 
-    public CoopController(RoundDAO roundDAO, CoopService service, OrderDAO orderDAO, UserDAO userDAO, ProductDAO productDAO) {
+    public CoopController(JdbcRoundDAO roundDAO, CoopService service, OrderDAO orderDAO, UserDAO userDAO, ProductDAO productDAO) {
         this.roundDAO = roundDAO;
         this.service = service;
         this.orderDAO = orderDAO;

@@ -6,8 +6,14 @@ import org.masteukodeu.robocoop.db.*;
 import org.masteukodeu.robocoop.model.Clock;
 import org.masteukodeu.robocoop.model.CoopService;
 import org.masteukodeu.robocoop.model.Round;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class CoopServiceTest {
 
@@ -15,7 +21,7 @@ public class CoopServiceTest {
     @Test
     public void orderShouldBeBlockedWhenLastOrderDateIsLessThanTwoDays(){
 
-        RoundDAO newRound = new RoundDAOTestClass(0);
+        JdbcRoundDAO newRound = new RoundDAOTestClass(0);
         Clock clock = new Clock();
 
         CoopService sut = new CoopService(
@@ -35,14 +41,17 @@ public class CoopServiceTest {
     @Test
     public void orderShouldNotBeBlockedWhenLastOrderDateIsMoreThanTwoDays(){
 
-        RoundDAO newRound = new RoundDAOTestClass(3);
-        Clock clock = new Clock();
+        RoundDAO roundDAO = mock(RoundDAO.class);
+        when(roundDAO.current()).thenReturn(new Round("", "", LocalDate.parse("2000-01-10")));
+
+        Clock clock = mock(Clock.class);
+        when(clock.now()).thenReturn(LocalDateTime.parse("2000-01-08T19:59:59"));
 
         CoopService sut = new CoopService(
                 null,
                 null,
                 null,
-                newRound,
+                roundDAO,
                 clock,
                 null,
                 null
@@ -51,7 +60,7 @@ public class CoopServiceTest {
 
     }
 
-    class RoundDAOTestClass extends RoundDAO {
+    class RoundDAOTestClass extends JdbcRoundDAO {
         int daysDelta;
 
         public RoundDAOTestClass(int daysDelta) {

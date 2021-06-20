@@ -1,6 +1,6 @@
 package org.masteukodeu.robocoop.web;
 
-import org.masteukodeu.robocoop.db.RoundDAO;
+import org.masteukodeu.robocoop.db.JdbcRoundDAO;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class CurrentRoundInterceptor extends HandlerInterceptorAdapter {
 
-    private final RoundDAO roundDAO;
+    private final JdbcRoundDAO roundDAO;
 
-    public CurrentRoundInterceptor(RoundDAO roundDAO) {
+    public CurrentRoundInterceptor(JdbcRoundDAO roundDAO) {
         this.roundDAO = roundDAO;
     }
 
