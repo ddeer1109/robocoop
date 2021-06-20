@@ -15,6 +15,7 @@ import java.util.List;
 
 @Repository
 public class RoundDAO {
+    int daysDelta = 0;
 
     private final JdbcTemplate jdbc;
 
@@ -22,13 +23,18 @@ public class RoundDAO {
         this.jdbc = jdbc;
     }
     public RoundDAO(){ this.jdbc = null; }
+    public RoundDAO(int daysDelta){
+        this.jdbc = null;
+        this.daysDelta = daysDelta;
+    }
+
     public Round current() {
         if(jdbc != null) {
             String currentRoundId = jdbc.queryForObject("SELECT aktualna_tura FROM spoldzielnia_config", String.class);
             return byId(currentRoundId);
         }
-        else{
-            return new Round("1", "test", LocalDate.now());
+        else {
+            return new Round("1", "test", LocalDate.now().plusDays(daysDelta));
 
         }
     }

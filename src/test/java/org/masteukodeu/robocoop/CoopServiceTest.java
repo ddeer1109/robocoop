@@ -13,10 +13,9 @@ public class CoopServiceTest {
 
 
     @Test
-    public void orderShouldBeBlocked(){
+    public void orderShouldBeBlockedWhenLastOrderDateIsLessThanTwoDays(){
 
 
-        Round testRound = new Round("1", "test", LocalDate.now());
         RoundDAO newRound = new RoundDAO();
         Clock clock = new Clock();
 
@@ -33,6 +32,29 @@ public class CoopServiceTest {
         );
 
         Assertions.assertTrue(sut.isOrderingBlocked(), "order is not blocked");
+
+    }
+
+    @Test
+    public void orderShouldNotBeBlockedWhenLastOrderDateIsMoreThanTwoDays(){
+
+
+        RoundDAO newRound = new RoundDAO(3);
+        Clock clock = new Clock();
+
+
+
+        CoopService sut = new CoopService(
+                null,
+                null,
+                null,
+                newRound,
+                clock,
+                null,
+                null
+        );
+
+        Assertions.assertFalse(sut.isOrderingBlocked(), "order should not be blocked");
 
     }
 }
