@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public class RoundDAO {
+public class RoundDAO implements RoundCRUD {
     private final JdbcTemplate jdbc;
 
     public RoundDAO(JdbcTemplate jdbc) {

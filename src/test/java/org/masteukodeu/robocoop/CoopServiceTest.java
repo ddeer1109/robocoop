@@ -47,13 +47,13 @@ public class CoopServiceTest {
                 null,
                 null
         );
-
         Assertions.assertFalse(sut.isOrderingBlocked(), "order should not be blocked");
 
     }
 
     class RoundDAOTestClass extends RoundDAO {
         int daysDelta;
+
         public RoundDAOTestClass(int daysDelta) {
             super(null);
             this.daysDelta = daysDelta;
